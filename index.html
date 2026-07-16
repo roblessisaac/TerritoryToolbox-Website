@@ -466,11 +466,63 @@
                 </div>
             </section>
 
-            <!-- ================= STUB SECTION: USE CASES ================= -->
+            <!-- ================= INTERACTIVE WORKSPACE: USE CASES ================= -->
             <section id="sect-usecases" class="hidden py-4">
-                <div class="max-w-4xl mx-auto flex flex-col gap-6 text-center py-20 border border-slate-200 rounded-2xl bg-white shadow-sm">
-                    <h2 class="tech-header text-2xl font-bold text-slate-900">Analysis Use Cases</h2>
-                    <p class="text-slate-500 text-sm">Practical strategies and density trend mapping guidelines are coming soon to this section.</p>
+                <div class="max-w-4xl mx-auto flex flex-col gap-6">
+                    <div class="border-b border-slate-200 pb-4">
+                        <span class="text-xs font-bold uppercase tracking-widest text-green-700">Practical Strategies</span>
+                        <h2 class="tech-header text-3xl font-bold text-slate-900 mt-1">What practical ways can you use your territory analysis?</h2>
+                        <p class="text-sm text-slate-600 mt-2 leading-relaxed">
+                            Learn how to use density trends to divide large territories, identify fast-growing residential zones, and assist publishers with highly accurate, up-to-date maps. Here are the most effective ways congregations are using spatial data to organize their ministry.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
+                        <!-- Use Case 1 -->
+                        <div class="p-6 bg-white border border-slate-200 rounded-xl shadow-sm flex flex-col gap-3">
+                            <div class="flex items-center gap-3">
+                                <span class="p-2 bg-green-50 text-green-700 rounded-lg">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75"></path></svg>
+                                </span>
+                                <h3 class="tech-header font-bold text-slate-900 leading-tight">Divide Large Territories</h3>
+                            </div>
+                            <p class="text-xs text-slate-600 leading-relaxed">
+                                Avoid the guesswork of manually counting blocks. By drawing multiple KML polygons over a large, dense territory, the engine instantly calculates exact address counts per block. This allows Service Overseers to easily divide a massive 300-address zone into perfectly balanced 80–100 address territories.
+                            </p>
+                        </div>
+
+                        <!-- Use Case 2 -->
+                        <div class="p-6 bg-white border border-slate-200 rounded-xl shadow-sm flex flex-col gap-3">
+                            <div class="flex items-center gap-3">
+                                <span class="p-2 bg-green-50 text-green-700 rounded-lg">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941"></path></svg>
+                                </span>
+                                <h3 class="tech-header font-bold text-slate-900 leading-tight">Identify Fast-Growing Zones</h3>
+                            </div>
+                            <p class="text-xs text-slate-600 leading-relaxed">
+                                Because this tool taps directly into official Milwaukee County 911 dispatch GIS points rather than outdated crowdsourced maps, it catches new construction and subdivisions the moment they hit county records. Stay ahead of neighborhood development with ground-truth accuracy.
+                            </p>
+                        </div>
+
+                        <!-- Use Case 3 -->
+                        <div class="p-6 bg-white border border-slate-200 rounded-xl shadow-sm flex flex-col gap-3">
+                            <div class="flex items-center gap-3">
+                                <span class="p-2 bg-green-50 text-green-700 rounded-lg">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504-1.125-1.125-1.125H8.25zM6.75 12h.008v.008H6.75V12zm0 3h.008v.008H6.75V15zm0 3h.008v.008H6.75V18z"></path></svg>
+                                </span>
+                                <h3 class="tech-header font-bold text-slate-900 leading-tight">Accurate Maps for Publishers</h3>
+                            </div>
+                            <p class="text-xs text-slate-600 leading-relaxed">
+                                Generate incredibly reliable lists for letter writing and door-to-door ministry. The tool isolates side-by-side duplexes and nested apartment units that typical routing software skips over, ensuring publishers have perfect, street-verified records to work from.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 flex flex-col items-center gap-4">
+                        <button onclick="navigateTo('analysis')" class="tactile-btn px-10 py-4 bg-green-700 hover:bg-green-600 text-white font-bold uppercase tracking-wider rounded-xl shadow-md transition duration-150 text-sm flex items-center gap-2">
+                            Start Analyzing Your Territory →
+                        </button>
+                    </div>
                 </div>
             </section>
 
