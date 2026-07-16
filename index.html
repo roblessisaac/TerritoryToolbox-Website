@@ -169,7 +169,7 @@
                         <div class="p-5 bg-white border border-slate-200 rounded-xl shadow-sm flex flex-col gap-2">
                             <span class="data-font text-green-700 text-sm font-bold uppercase">Step 01</span>
                             <h3 class="tech-header font-bold text-slate-900">Download your KML</h3>
-                            <p class="text-xs text-slate-600 leading-relaxed">Export your territory boundaries from your mapping software as a standard .<a href="#" onclick="navigateTo('faq'); return false;" class="text-green-700 font-semibold hover:underline">KML</a> file.</p>
+                            <p class="text-xs text-slate-600 leading-relaxed">Export your territory boundaries from your mapping software as a standard .<a href="#" onclick="navigateTo('faq', 'faq-cat-kml'); return false;" class="text-green-700 font-semibold hover:underline">KML</a> file.</p>
                         </div>
                         <div class="p-5 bg-white border border-slate-200 rounded-xl shadow-sm flex flex-col gap-2">
                             <span class="data-font text-green-700 text-sm font-bold uppercase">Step 02</span>
@@ -187,7 +187,7 @@
                         <button onclick="window.open('https://mke-territory-analysis.streamlit.app/', '_blank')" class="tactile-btn px-10 py-4 bg-green-700 hover:bg-green-600 text-white font-bold uppercase tracking-wider rounded-xl shadow-md transition duration-150 text-sm flex items-center gap-2">
                             Launch Analyzer Engine →
                         </button>
-                        <a href="#" onclick="navigateTo('faq'); return false;" class="text-sm text-green-700 hover:underline font-medium">Stuck? See the FAQ’S</a>
+                        <a href="#" onclick="navigateTo('faq', 'faq-cat-analysis'); return false;" class="text-sm text-green-700 hover:underline font-medium">Stuck? See the FAQ’S</a>
                     </div>
                 </div>
             </section>
@@ -221,7 +221,7 @@
                         <div class="p-5 bg-white border border-slate-200 rounded-xl shadow-sm flex flex-col gap-2">
                             <span class="data-font text-green-700 text-sm font-bold uppercase">Step 03</span>
                             <h3 class="tech-header font-bold text-slate-900">Download Formatted List</h3>
-                            <p class="text-xs text-slate-600 leading-relaxed">Download the resulting NWS "Address" Import file, fully ready to be uploaded into NWS. See <a href="#" onclick="navigateTo('faq'); return false;" class="text-green-700 font-semibold hover:underline">FAQ</a> for further direction if needed.</p>
+                            <p class="text-xs text-slate-600 leading-relaxed">Download the resulting NWS "Address" Import file, fully ready to be uploaded into NWS. See <a href="#" onclick="navigateTo('faq', 'faq-cat-importer'); return false;" class="text-green-700 font-semibold hover:underline">FAQ</a> for further direction if needed.</p>
                         </div>
                     </div>
 
@@ -229,7 +229,7 @@
                         <button onclick="window.open('https://mke-nws-import.streamlit.app/', '_blank')" class="tactile-btn px-10 py-4 bg-green-700 hover:bg-green-600 text-white font-bold uppercase tracking-wider rounded-xl shadow-md transition duration-150 text-sm flex items-center gap-2">
                             Launch Importer Engine →
                         </button>
-                        <a href="#" onclick="navigateTo('faq'); return false;" class="text-sm text-green-700 hover:underline font-medium">Stuck? See the FAQ’S</a>
+                        <a href="#" onclick="navigateTo('faq', 'faq-cat-importer'); return false;" class="text-sm text-green-700 hover:underline font-medium">Stuck? See the FAQ’S</a>
                     </div>
                 </div>
             </section>
@@ -244,7 +244,7 @@
                     </div>
 
                     <!-- Category: SOURCES -->
-                    <h3 class="tech-header text-xl font-bold text-green-700 mt-4 mb-2 border-b border-slate-200/50 pb-2">SOURCES</h3>
+                    <h3 id="faq-cat-sources" class="tech-header text-xl font-bold text-green-700 mt-4 mb-2 border-b border-slate-200/50 pb-2 scroll-mt-24">SOURCES</h3>
                     <div class="flex flex-col gap-4">
                         <div class="border border-slate-200 rounded-2xl bg-white shadow-sm overflow-hidden">
                             <button onclick="toggleFaq(1)" class="w-full p-5 text-left flex justify-between items-center hover:bg-slate-50 transition">
@@ -276,7 +276,7 @@
                     </div>
 
                     <!-- Category: KML -->
-                    <h3 class="tech-header text-xl font-bold text-green-700 mt-6 mb-2 border-b border-slate-200/50 pb-2">KML</h3>
+                    <h3 id="faq-cat-kml" class="tech-header text-xl font-bold text-green-700 mt-6 mb-2 border-b border-slate-200/50 pb-2 scroll-mt-24">KML</h3>
                     <div class="flex flex-col gap-4">
                         <div class="border border-slate-200 rounded-2xl bg-white shadow-sm overflow-hidden">
                             <button onclick="toggleFaq(4)" class="w-full p-5 text-left flex justify-between items-center hover:bg-slate-50 transition">
@@ -308,7 +308,7 @@
                     </div>
 
                     <!-- Category: ANALYSIS -->
-                    <h3 class="tech-header text-xl font-bold text-green-700 mt-6 mb-2 border-b border-slate-200/50 pb-2">ANALYSIS</h3>
+                    <h3 id="faq-cat-analysis" class="tech-header text-xl font-bold text-green-700 mt-6 mb-2 border-b border-slate-200/50 pb-2 scroll-mt-24">ANALYSIS</h3>
                     <div class="flex flex-col gap-4">
                         <div class="border border-slate-200 rounded-2xl bg-white shadow-sm overflow-hidden">
                             <button onclick="toggleFaq(7)" class="w-full p-5 text-left flex justify-between items-center hover:bg-slate-50 transition">
@@ -331,7 +331,7 @@
                     </div>
 
                     <!-- Category: IMPORTER -->
-                    <h3 class="tech-header text-xl font-bold text-green-700 mt-6 mb-2 border-b border-slate-200/50 pb-2">IMPORTER</h3>
+                    <h3 id="faq-cat-importer" class="tech-header text-xl font-bold text-green-700 mt-6 mb-2 border-b border-slate-200/50 pb-2 scroll-mt-24">IMPORTER</h3>
                     <div class="flex flex-col gap-4">
                         <div class="border border-slate-200 rounded-2xl bg-white shadow-sm overflow-hidden">
                             <button onclick="toggleFaq(9)" class="w-full p-5 text-left flex justify-between items-center hover:bg-slate-50 transition">
@@ -513,7 +513,7 @@
     <!-- MAIN CONTROL LOGIC -->
     <script>
         // Single page router navigation logic
-        function navigateTo(tabId) {
+        function navigateTo(tabId, targetId = null) {
             const sections = ['home', 'analysis', 'importer', 'faq', 'contact', 'sample', 'usecases'];
             
             sections.forEach(sec => {
@@ -536,7 +536,17 @@
                 activeTab.classList.remove('text-slate-500');
             }
 
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            if (targetId) {
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    // Small timeout to allow the display:block to render before scrolling
+                    setTimeout(() => {
+                        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }, 50);
+                }
+            } else {
+                 window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
         }
 
         // FAQ accordion toggle logic
