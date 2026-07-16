@@ -512,11 +512,27 @@
 
     <!-- MAIN CONTROL LOGIC -->
     <script>
-        // Single page router navigation logic
-        function navigateTo(tabId, targetId = null) {
-            const sections = ['home', 'analysis', 'importer', 'faq', 'contact', 'sample', 'usecases'];
-            
-            sections.forEach(sec => {
+        // Core routing logic based on URL hashes
+        function applyHash(hash) {
+            let tabId = 'home';
+            let targetId = null;
+
+            if (hash && hash !== '#' && hash !== '') {
+                // Example: #faq/faq-cat-kml
+                const parts = hash.replace('#', '').split('/');
+                tabId = parts[0] || 'home';
+                if (parts.length > 1) {
+                    targetId = parts[1];
+                }
+            }
+
+            const validTabs = ['home', 'analysis', 'importer', 'faq', 'contact', 'sample', 'usecases'];
+            if (!validTabs.includes(tabId)) {
+                tabId = 'home';
+            }
+
+            // Hide all sections and reset tabs
+            validTabs.forEach(sec => {
                 const sectEl = document.getElementById(`sect-${sec}`);
                 if(sectEl) sectEl.classList.add('hidden');
                 
@@ -527,6 +543,7 @@
                 }
             });
 
+            // Show active section and tab
             const activeSect = document.getElementById(`sect-${tabId}`);
             if(activeSect) activeSect.classList.remove('hidden');
             
@@ -536,6 +553,7 @@
                 activeTab.classList.remove('text-slate-500');
             }
 
+            // Handle scrolling
             if (targetId) {
                 const targetElement = document.getElementById(targetId);
                 if (targetElement) {
@@ -548,6 +566,32 @@
                  window.scrollTo({ top: 0, behavior: 'smooth' });
             }
         }
+
+        // Single page router navigation wrapper
+        function navigateTo(tabId, targetId = null) {
+            let newHash = `#${tabId}`;
+            if (targetId) {
+                newHash += `/${targetId}`;
+            }
+
+            // If the hash is already the same, force the update (for clicking the same link twice)
+            if (window.location.hash === newHash) {
+                applyHash(newHash);
+            } else {
+                // Changing the hash will trigger the 'hashchange' event listener below
+                window.location.hash = newHash;
+            }
+        }
+
+        // Listen for browser back/forward buttons and direct link visits
+        window.addEventListener('hashchange', () => {
+            applyHash(window.location.hash);
+        });
+
+        // Initialize routing on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            applyHash(window.location.hash);
+        });
 
         // FAQ accordion toggle logic
         function toggleFaq(id) {
