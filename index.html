@@ -60,13 +60,28 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #94a3b8;
         }
-        /* Custom slow fade for logo accents */
-        @keyframes accentFade {
+        /* Custom slow fade for logo and active tabs */
+        @keyframes textAccentFade {
             0%, 100% { color: #14532d; } /* text-green-900 */
-            50% { color: #15803d; } /* text-green-700 (dispatch button color) */
+            50% { color: #15803d; } /* text-green-700 */
         }
-        .accent-fade {
-            animation: accentFade 4s ease-in-out infinite;
+        .text-accent-fade {
+            animation: textAccentFade 4s ease-in-out infinite;
+        }
+        @keyframes bgAccentFade {
+            0%, 100% { background-color: #14532d; } /* bg-green-900 */
+            50% { background-color: #15803d; } /* bg-green-700 */
+        }
+        .bg-accent-fade {
+            animation: bgAccentFade 4s ease-in-out infinite;
+        }
+        /* Terminal cursor blink */
+        @keyframes blinkCursor {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        .blink-cursor {
+            animation: blinkCursor 2.5s ease-in-out infinite;
         }
     </style>
 </head>
@@ -78,13 +93,13 @@
         <!-- LOBBY MASTHEAD -->
         <header class="mb-8">
             <div class="flex flex-col md:flex-row justify-between items-center gap-6 py-2">
-                <h1 onclick="navigateTo('home')" class="tech-header text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 select-none leading-none cursor-pointer hover:opacity-80 transition-opacity">
-                    <span class="accent-fade">/</span>TERRITORY<span class="accent-fade">_</span>ANALYSIS
+                <h1 onclick="navigateTo('home')" class="text-accent-fade tech-header text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight select-none leading-none cursor-pointer hover:opacity-80 transition-opacity">
+                    <span class="relative bottom-[2px]">//</span>TERRITORY<span class="relative bottom-[4px]">_</span>ANALYSIS<span class="blink-cursor relative bottom-[4px]">_</span>
                 </h1>
                 
                 <!-- GAME MODE NAVIGATION TABS -->
                 <nav class="flex flex-wrap justify-center bg-white/90 border border-slate-200 shadow-sm p-1.5 rounded-xl text-xs tracking-wider uppercase font-semibold text-slate-500">
-                    <button onclick="navigateTo('home')" id="tab-home" class="px-4 py-2 rounded-lg hover:text-slate-900 transition duration-150 bg-green-800 text-white">Home</button>
+                    <button onclick="navigateTo('home')" id="tab-home" class="px-4 py-2 rounded-lg hover:text-white transition duration-150 bg-accent-fade text-white">Home</button>
                     <button onclick="navigateTo('analysis')" id="tab-analysis" class="px-4 py-2 rounded-lg hover:text-slate-900 transition duration-150">Analyzer</button>
                     <button onclick="navigateTo('importer')" id="tab-importer" class="px-4 py-2 rounded-lg hover:text-slate-900 transition duration-150">Importer</button>
                     <button onclick="navigateTo('faq')" id="tab-faq" class="px-4 py-2 rounded-lg hover:text-slate-900 transition duration-150">FAQ</button>
@@ -478,8 +493,8 @@
             <section id="sect-usecases" class="hidden py-4">
                 <div class="max-w-4xl mx-auto flex flex-col gap-6">
                     <div class="border-b border-slate-200 pb-4">
-                        <span class="text-xs font-bold uppercase tracking-widest text-green-700">Use Cases</span>
-                        <h2 class="tech-header text-3xl font-bold text-slate-900 mt-1">What practical ways can you use your territory analysis?</h2>
+                        <span class="text-xs font-bold uppercase tracking-widest text-green-700">What practical ways can you use your territory analysis?</span>
+                        <h2 class="tech-header text-3xl font-bold text-slate-900 mt-1">Use Cases</h2>
                         <p class="text-sm text-slate-600 mt-2 leading-relaxed">
                             There are many ways to utilize your territory analysis far beyond a basic spreadsheet report. Below are a few of the most effective strategies for turning raw address data into organized, ready-to-use resources that directly support the friends in their ministry.
                         </p>
@@ -615,7 +630,7 @@
                 
                 const tabEl = document.getElementById(`tab-${sec}`);
                 if(tabEl) {
-                    tabEl.classList.remove('bg-green-800', 'text-white');
+                    tabEl.classList.remove('bg-accent-fade', 'text-white');
                     tabEl.classList.add('text-slate-500');
                 }
             });
@@ -626,7 +641,7 @@
             
             const activeTab = document.getElementById(`tab-${tabId}`);
             if(activeTab) {
-                activeTab.classList.add('bg-green-800', 'text-white');
+                activeTab.classList.add('bg-accent-fade', 'text-white');
                 activeTab.classList.remove('text-slate-500');
             }
 
