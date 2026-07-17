@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Territory Analysis — Spatial Control Portal</title>
+    <title>Territory Toolbox — Spatial Control Portal</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts: Space Grotesk (Tech Headers), Inter (Sans UI), & Fira Code (Data) -->
@@ -91,19 +91,26 @@
     <div class="max-w-6xl w-full mx-auto flex-grow flex flex-col pt-4">
 
         <!-- LOBBY MASTHEAD -->
-        <header class="mb-8">
-            <div class="flex flex-col md:flex-row justify-between items-center gap-6 py-2">
-                <h1 onclick="navigateTo('home')" class="text-accent-fade tech-header text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight select-none leading-none cursor-pointer hover:opacity-80 transition-opacity">
-                    <span class="relative bottom-[2px]">//</span>TERRITORY<span class="relative bottom-[4px]">_</span>ANALYSIS<span class="blink-cursor relative bottom-[4px]">_</span>
+        <header class="mb-4 relative z-50">
+            <div class="flex flex-row justify-between items-center gap-4 py-2 relative">
+                <h1 onclick="navigateTo('home')" class="text-accent-fade tech-header text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight select-none leading-none cursor-pointer hover:opacity-80 transition-opacity text-left shrink-0">
+                    <span class="block lg:inline"><span class="relative bottom-[2px]">/</span>TERRITORY<span class="relative bottom-[4px]">_</span></span>
+                    <span class="block lg:inline">TOOLBOX<span class="blink-cursor relative bottom-[4px]">_</span></span>
                 </h1>
                 
+                <!-- Mobile Hamburger Button -->
+                <button onclick="toggleNavMenu()" class="lg:hidden flex items-center gap-2 px-3 py-2 bg-white border border-slate-200 shadow-sm rounded-lg text-xs tracking-wider uppercase font-semibold text-slate-600 hover:text-slate-900 transition shrink-0">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                    Menu
+                </button>
+
                 <!-- GAME MODE NAVIGATION TABS -->
-                <nav class="flex flex-wrap justify-center bg-white/90 border border-slate-200 shadow-sm p-1.5 rounded-xl text-xs tracking-wider uppercase font-semibold text-slate-500">
-                    <button onclick="navigateTo('home')" id="tab-home" class="px-4 py-2 rounded-lg hover:text-white transition duration-150 bg-accent-fade text-white">Home</button>
-                    <button onclick="navigateTo('analysis')" id="tab-analysis" class="px-4 py-2 rounded-lg hover:text-slate-900 transition duration-150">Analyzer</button>
-                    <button onclick="navigateTo('importer')" id="tab-importer" class="px-4 py-2 rounded-lg hover:text-slate-900 transition duration-150">Importer</button>
-                    <button onclick="navigateTo('faq')" id="tab-faq" class="px-4 py-2 rounded-lg hover:text-slate-900 transition duration-150">FAQ</button>
-                    <button onclick="navigateTo('contact')" id="tab-contact" class="px-4 py-2 rounded-lg hover:text-slate-900 transition duration-150">Contact</button>
+                <nav id="main-nav" class="hidden lg:flex flex-col lg:flex-row lg:flex-wrap justify-center bg-white/95 lg:bg-white/90 border border-slate-200 shadow-xl lg:shadow-sm p-2 lg:p-1.5 rounded-xl text-xs tracking-wider uppercase font-semibold text-slate-500 w-full lg:w-auto absolute lg:relative top-full lg:top-auto left-0 lg:left-auto mt-2 lg:mt-0 backdrop-blur-md lg:backdrop-blur-none z-50">
+                    <button onclick="navigateTo('home')" id="tab-home" class="px-4 py-3 lg:py-2 rounded-lg hover:text-white transition duration-150 bg-accent-fade text-white whitespace-nowrap text-left lg:text-center w-full lg:w-auto">Home</button>
+                    <button onclick="navigateTo('analysis')" id="tab-analysis" class="px-4 py-3 lg:py-2 rounded-lg hover:text-slate-900 hover:bg-slate-50 lg:hover:bg-transparent transition duration-150 whitespace-nowrap text-left lg:text-center w-full lg:w-auto">Analyzer</button>
+                    <button onclick="navigateTo('importer')" id="tab-importer" class="px-4 py-3 lg:py-2 rounded-lg hover:text-slate-900 hover:bg-slate-50 lg:hover:bg-transparent transition duration-150 whitespace-nowrap text-left lg:text-center w-full lg:w-auto">Importer</button>
+                    <button onclick="navigateTo('faq')" id="tab-faq" class="px-4 py-3 lg:py-2 rounded-lg hover:text-slate-900 hover:bg-slate-50 lg:hover:bg-transparent transition duration-150 whitespace-nowrap text-left lg:text-center w-full lg:w-auto">FAQ</button>
+                    <button onclick="navigateTo('contact')" id="tab-contact" class="px-4 py-3 lg:py-2 rounded-lg hover:text-slate-900 hover:bg-slate-50 lg:hover:bg-transparent transition duration-150 whitespace-nowrap text-left lg:text-center w-full lg:w-auto">Contact</button>
                 </nav>
             </div>
         </header>
@@ -130,9 +137,9 @@
                 </div>
 
                 <!-- Highlight Quote Block / Mission Parameter -->
-                <div class="border-l-4 border-green-700 bg-white shadow-sm p-5 rounded-r-xl">
-                    <p class="text-sm sm:text-base text-slate-800 leading-relaxed font-serif">
-                        “I did not hold back from telling you any of the things that were profitable nor from teaching … from house to house” - Acts 20:20
+                <div class="border-l-4 border-green-700 cyber-panel shadow-sm p-5 rounded-xl">
+                    <p class="text-sm sm:text-base text-slate-800 leading-relaxed tech-header font-normal">
+                        “I did not hold back from telling you any of the things that were profitable nor from teaching … from house to house” <span class="data-font text-green-700 font-bold uppercase">- Acts 20:20</span>
                     </p>
                 </div>
 
@@ -271,7 +278,7 @@
                     <div class="flex flex-col gap-4">
                         <div class="border border-slate-200 rounded-2xl bg-white shadow-sm overflow-hidden">
                             <button onclick="toggleFaq(1)" class="w-full p-5 text-left flex justify-between items-center hover:bg-slate-50 transition">
-                                <span class="tech-header font-bold text-slate-900">Where does Territory Analysis get it’s data?</span>
+                                <span class="tech-header font-bold text-slate-900">Where does Territory Toolbox get it’s data?</span>
                                 <span id="faq-arrow-1" class="text-green-700 transition-transform duration-200">▼</span>
                             </button>
                             <div id="faq-answer-1" class="hidden p-5 border-t border-slate-100 bg-slate-50 text-sm text-slate-600 leading-relaxed">
@@ -592,7 +599,7 @@
             <!-- Copyright & Bottom Links -->
             <div class="flex flex-col md:flex-row justify-between items-center text-[10px] tracking-wider uppercase font-semibold text-slate-400 pt-6 border-t border-slate-200/60 w-full gap-4 px-2">
                 <div>
-                    © 2026 TERRITORY ANALYSIS— SYSTEM STATUS: ACTIVE
+                    © 2026 TERRITORY TOOLBOX— SYSTEM STATUS: ACTIVE
                 </div>
                 <div class="flex gap-4">
                     <a href="#" onclick="navigateTo('home'); return false;" class="hover:text-green-700 transition">Back to Top</a>
@@ -645,6 +652,13 @@
                 activeTab.classList.remove('text-slate-500');
             }
 
+            // Close mobile menu if open
+            const nav = document.getElementById('main-nav');
+            if (window.innerWidth < 1024 && nav && !nav.classList.contains('hidden')) {
+                nav.classList.add('hidden');
+                nav.classList.remove('flex');
+            }
+
             // Handle scrolling
             if (targetId) {
                 const targetElement = document.getElementById(targetId);
@@ -684,6 +698,18 @@
         window.addEventListener('DOMContentLoaded', () => {
             applyHash(window.location.hash);
         });
+
+        // Mobile Nav Toggle
+        function toggleNavMenu() {
+            const nav = document.getElementById('main-nav');
+            if (nav.classList.contains('hidden')) {
+                nav.classList.remove('hidden');
+                nav.classList.add('flex');
+            } else {
+                nav.classList.add('hidden');
+                nav.classList.remove('flex');
+            }
+        }
 
         // FAQ accordion toggle logic
         function toggleFaq(id) {
