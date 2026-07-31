@@ -1,16 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="icon" type="image/x-icon" href="favicon.ico">    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Territory Toolbox</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Space Grotesk (Tech Headers), Inter (Sans UI), & Fira Code (Data) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
-    <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="Territory Toolbox helps congregation territory servants analyze KML boundaries, review official address data, identify multifamily properties, and organize territory information for local ministry use." name="description"/>
+<meta content="#14532d" name="theme-color"/>
+<link href="https://territorytoolbox.com/" rel="canonical"/>
+<link href="favicon.ico" rel="icon" type="image/x-icon"/>
+<meta content="Territory Toolbox" property="og:title"/>
+<meta content="Analyze KML territory boundaries, review official address data, identify multifamily properties, and organize territory information for local ministry use." property="og:description"/>
+<meta content="website" property="og:type"/>
+<meta content="https://territorytoolbox.com/" property="og:url"/>
+<meta content="summary" name="twitter:card"/>
+<meta content="Territory Toolbox" name="twitter:title"/>
+<meta content="Analyze KML territory boundaries, review official address data, identify multifamily properties, and organize territory information for local ministry use." name="twitter:description"/>
+<title>Territory Toolbox</title>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+<!-- Google Fonts: Space Grotesk (Tech Headers), Inter (Sans UI), & Fira Code (Data) -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&amp;family=Inter:wght@400;500;600;700&amp;family=Fira+Code:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<style>
         body {
             background-color: #efefef;
             color: #0f172a;
@@ -62,18 +73,18 @@
         }
         /* Custom slow fade for logo and active tabs */
         @keyframes textAccentFade {
-            0%, 100% { color: #14532d; } /* text-green-900 */
-            50% { color: #15803d; } /* text-green-700 */
+            0%, 100% { color: #166534; } /* text-green-900 */
+            50% { color: #16a34a; } /* text-green-700 */
         }
         .text-accent-fade {
-            animation: textAccentFade 4s ease-in-out infinite;
+            animation: textAccentFade 8s ease-in-out infinite;
         }
         @keyframes bgAccentFade {
-            0%, 100% { background-color: #14532d; } /* bg-green-900 */
-            50% { background-color: #15803d; } /* bg-green-700 */
+            0%, 100% { background-color: #166534; } /* bg-green-900 */
+            50% { background-color: #16a34a; } /* bg-green-700 */
         }
         .bg-accent-fade {
-            animation: bgAccentFade 4s ease-in-out infinite;
+            animation: bgAccentFade 8s ease-in-out infinite;
         }
         /* Terminal cursor blink */
         @keyframes blinkCursor {
@@ -83,970 +94,1234 @@
         .blink-cursor {
             animation: blinkCursor 2.5s ease-in-out infinite;
         }
-    </style>
+
+        /* Consistent keyboard focus treatment */
+        :where(a, button, input, textarea):focus-visible {
+            outline: 3px solid #22c55e;
+            outline-offset: 3px;
+        }
+        .tutorial-preview {
+            cursor: not-allowed;
+        }
+        .tutorial-preview .tutorial-icon {
+            opacity: 0.72;
+        }
+        .use-case-icon {
+            display: inline-flex;
+            width: 2.75rem;
+            height: 2.75rem;
+            flex: 0 0 2.75rem;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.75rem;
+        }
+        .use-case-icon svg {
+            width: 1.5rem;
+            height: 1.5rem;
+            display: block;
+        }
+        
+        .nav-top-link:hover, .nav-group-button:hover, .nav-sub-link:hover { color: #0f172a; background: #f8fafc; }
+        .nav-submenu { text-transform: none; letter-spacing: 0.025em; }
+        .nav-group.is-active > .nav-group-button, .nav-top-link.is-active { color: #fff; animation: bgAccentFade 8s ease-in-out infinite; }
+        .nav-sub-link[aria-current="page"] { color: #166534; background: #f0fdf4; font-weight: 700; }
+        .nav-group-button[aria-expanded="true"] .nav-chevron { transform: rotate(180deg); }
+        @media (max-width: 1023px) {
+            .nav-submenu { margin-left: 0.75rem; border-left: 2px solid #bbf7d0; box-shadow: none; background: rgba(248,250,252,.8); }
+        }
+
+        .breadcrumb-shell {
+            min-height: 1.5rem;
+        }
+        .breadcrumb-nav {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.6875rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            line-height: 1.5;
+            text-transform: uppercase;
+        }
+        .breadcrumb-list {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.35rem;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            overflow-wrap: anywhere;
+        }
+        .breadcrumb-link {
+            color: #64748b;
+            border-radius: 0.25rem;
+            text-decoration: none;
+            transition: color 0.15s ease, background-color 0.15s ease;
+        }
+        .breadcrumb-link:hover {
+            color: #166534;
+            text-decoration: underline;
+            text-underline-offset: 0.2rem;
+        }
+        .breadcrumb-category {
+            color: #64748b;
+        }
+        .breadcrumb-current {
+            color: #166534;
+            font-weight: 700;
+        }
+        .breadcrumb-separator {
+            color: #94a3b8;
+            user-select: none;
+        }
+
+        .release-tool-tab,
+        .release-subtab {
+            transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+        }
+        .release-tool-tab[aria-selected="true"] {
+            background-color: #166534;
+            border-color: #166534;
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(22, 101, 52, 0.18);
+        }
+        .release-tool-tab[aria-selected="false"] {
+            background-color: #ffffff;
+            border-color: #cbd5e1;
+            color: #475569;
+        }
+        .release-tool-tab[aria-selected="false"]:hover {
+            background-color: #f8fafc;
+            border-color: #86efac;
+            color: #166534;
+        }
+        .release-subtab[aria-selected="true"] {
+            background-color: #f0fdf4;
+            border-color: #166534;
+            color: #166534;
+        }
+        .release-subtab[aria-selected="false"] {
+            background-color: transparent;
+            border-color: #cbd5e1;
+            color: #64748b;
+        }
+        .release-subtab[aria-selected="false"]:hover {
+            background-color: #f8fafc;
+            color: #166534;
+        }
+@media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto !important;
+            }
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                scroll-behavior: auto !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    
+        @media (prefers-reduced-motion: reduce) {
+            .text-accent-fade { color: #166534 !important; }
+            .bg-accent-fade, .nav-group.is-active > .nav-group-button, .nav-top-link.is-active { background-color: #166534 !important; color: #fff !important; }
+        }
+</style>
 </head>
 <body class="min-h-screen flex flex-col antialiased px-4 sm:px-6 lg:px-8 py-6">
-
-    <!-- Global Layout Frame Container -->
-    <div class="max-w-6xl w-full mx-auto flex-grow flex flex-col pt-4">
-
-        <!-- LOBBY MASTHEAD -->
-        <header class="mb-4 relative z-50">
-            <div class="flex flex-row justify-between items-center gap-4 py-2 relative">
-                <h1 onclick="navigateTo('home')" class="text-accent-fade tech-header text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight select-none leading-none cursor-pointer hover:opacity-80 transition-opacity text-left shrink-0">
-                    <span class="block lg:inline"><span class="relative bottom-[2px]">/</span>TERRITORY<span class="relative bottom-[4px]">_</span></span>
-                    <span class="block lg:inline">TOOLBOX<span class="blink-cursor relative bottom-[4px]">_</span></span>
-                </h1>
-                
-                <!-- Mobile Hamburger Button -->
-                <button onclick="toggleNavMenu()" class="lg:hidden flex items-center gap-2 px-3 py-2 bg-white border border-slate-200 shadow-sm rounded-lg text-xs tracking-wider uppercase font-semibold text-slate-600 hover:text-slate-900 transition shrink-0">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-                    Menu
+<!-- Global Layout Frame Container -->
+<div class="max-w-6xl w-full mx-auto flex-grow flex flex-col pt-4">
+<!-- LOBBY MASTHEAD -->
+<header class="mb-4 relative z-50">
+<div class="flex flex-row justify-between items-center gap-4 py-2 relative">
+<h1 class="shrink-0 leading-none">
+<a aria-label="Territory Toolbox home" class="text-accent-fade tech-header text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight select-none leading-none hover:opacity-80 transition-opacity text-left inline-block" href="#home" onclick="navigateTo('home'); return false;">
+<span class="block lg:inline"><span class="relative bottom-[2px]">/</span>TERRITORY<span class="relative bottom-[4px]">_</span></span>
+<span class="block lg:inline">TOOLBOX<span class="blink-cursor relative bottom-[4px]">_</span></span>
+</a>
+</h1>
+<!-- Mobile Hamburger Button -->
+<button aria-controls="main-nav" aria-expanded="false" aria-label="Open navigation menu" class="lg:hidden flex items-center gap-2 px-3 py-2 bg-white border border-slate-200 shadow-sm rounded-lg text-xs tracking-wider uppercase font-semibold text-slate-600 hover:text-slate-900 transition shrink-0" id="mobile-menu-button" onclick="toggleNavMenu()" type="button">
+<svg aria-hidden="true" class="w-5 h-5" fill="none" focusable="false" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                    MENU
                 </button>
-
-                <!-- GAME MODE NAVIGATION TABS -->
-                <nav id="main-nav" class="hidden lg:flex flex-col lg:flex-row lg:flex-wrap justify-center bg-white/95 lg:bg-white/90 border border-slate-200 shadow-xl lg:shadow-sm p-2 lg:p-1.5 rounded-xl text-xs tracking-wider uppercase font-semibold text-slate-500 w-full lg:w-auto absolute lg:relative top-full lg:top-auto left-0 lg:left-auto mt-2 lg:mt-0 backdrop-blur-md lg:backdrop-blur-none z-50">
-                    <button onclick="navigateTo('home')" id="tab-home" class="px-4 py-3 lg:py-2 rounded-lg hover:text-white transition duration-150 bg-accent-fade text-white whitespace-nowrap text-left lg:text-center w-full lg:w-auto">Home</button>
-                    <button onclick="navigateTo('analysis')" id="tab-analysis" class="px-4 py-3 lg:py-2 rounded-lg hover:text-slate-900 hover:bg-slate-50 lg:hover:bg-transparent transition duration-150 whitespace-nowrap text-left lg:text-center w-full lg:w-auto">Analyzer</button>
-                    <button onclick="navigateTo('importer')" id="tab-importer" class="px-4 py-3 lg:py-2 rounded-lg hover:text-slate-900 hover:bg-slate-50 lg:hover:bg-transparent transition duration-150 whitespace-nowrap text-left lg:text-center w-full lg:w-auto">Importer</button>
-                    <button onclick="navigateTo('faq')" id="tab-faq" class="px-4 py-3 lg:py-2 rounded-lg hover:text-slate-900 hover:bg-slate-50 lg:hover:bg-transparent transition duration-150 whitespace-nowrap text-left lg:text-center w-full lg:w-auto">FAQ</button>
-                    <button onclick="navigateTo('contact')" id="tab-contact" class="px-4 py-3 lg:py-2 rounded-lg hover:text-slate-900 hover:bg-slate-50 lg:hover:bg-transparent transition duration-150 whitespace-nowrap text-left lg:text-center w-full lg:w-auto">Contact</button>
-                </nav>
-            </div>
-        </header>
-
-        <!-- MAIN MOUNT POINT -->
-        <main class="flex-grow flex flex-col">
-
-            <!-- ================= LOBBY (HOME) SECTION ================= -->
-            <section id="sect-home" class="flex flex-col gap-6 py-4">
-                <!-- Left Main Feature Details (Main Story) -->
-                <div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm relative overflow-hidden">
-                    <span class="text-xs font-bold uppercase tracking-[0.2em] text-green-900">Welcome to the Site</span>
-                    <h2 class="tech-header text-2xl sm:text-3xl font-bold leading-tight mt-1 mb-3 text-slate-900">
+<!-- GAME MODE NAVIGATION TABS -->
+<nav class="hidden lg:flex flex-col lg:flex-row lg:items-center lg:flex-wrap justify-center bg-white/95 lg:bg-white/90 border border-slate-200 shadow-xl lg:shadow-sm p-2 lg:p-1.5 rounded-xl text-xs tracking-wider uppercase font-semibold text-slate-500 w-full lg:w-auto absolute lg:relative top-full lg:top-auto left-0 lg:left-auto mt-2 lg:mt-0 backdrop-blur-md lg:backdrop-blur-none z-50" id="main-nav"><a class="nav-top-link px-4 py-3 lg:py-2 rounded-lg transition duration-150 whitespace-nowrap text-left lg:text-center w-full lg:w-auto" data-nav-page="home" href="#home" id="tab-home" onclick="navigateTo('home'); return false;">HOME</a>
+<div class="nav-group relative w-full lg:w-auto" data-nav-group="tools"><button aria-controls="nav-tools-menu" aria-expanded="false" class="nav-group-button w-full lg:w-auto px-4 py-3 lg:py-2 rounded-lg flex items-center justify-between lg:justify-center gap-2 transition" id="nav-tools-button" onclick="toggleNavGroup('tools', event)" type="button">TOOLS <span aria-hidden="true" class="nav-chevron transition-transform">▼</span></button><div class="nav-submenu hidden lg:absolute lg:top-full lg:left-0 lg:mt-2 lg:min-w-44 bg-white border border-slate-200 rounded-lg shadow-lg p-1 z-50" id="nav-tools-menu" role="menu"><a class="nav-sub-link block px-4 py-3 lg:py-2 rounded-md" data-nav-page="analysis" href="#analysis" onclick="navigateTo('analysis'); return false;" role="menuitem">ANALYZER</a><a class="nav-sub-link block px-4 py-3 lg:py-2 rounded-md" data-nav-page="importer" href="#importer" onclick="navigateTo('importer'); return false;" role="menuitem">NWS IMPORTER</a></div></div>
+<div class="nav-group relative w-full lg:w-auto" data-nav-group="resources"><button aria-controls="nav-resources-menu" aria-expanded="false" class="nav-group-button w-full lg:w-auto px-4 py-3 lg:py-2 rounded-lg flex items-center justify-between lg:justify-center gap-2 transition" id="nav-resources-button" onclick="toggleNavGroup('resources', event)" type="button">RESOURCES <span aria-hidden="true" class="nav-chevron transition-transform">▼</span></button><div class="nav-submenu hidden lg:absolute lg:top-full lg:left-0 lg:mt-2 lg:min-w-48 bg-white border border-slate-200 rounded-lg shadow-lg p-1 z-50" id="nav-resources-menu" role="menu"><a class="nav-sub-link block px-4 py-3 lg:py-2 rounded-md" data-nav-page="faq" href="#faq" onclick="navigateTo('faq'); return false;" role="menuitem">FAQ</a><a class="nav-sub-link block px-4 py-3 lg:py-2 rounded-md" data-nav-page="sample" href="#sample" onclick="navigateTo('sample'); return false;" role="menuitem">SAMPLE OUTPUT</a><a class="nav-sub-link block px-4 py-3 lg:py-2 rounded-md" data-nav-page="usecases" href="#usecases" onclick="navigateTo('usecases'); return false;" role="menuitem">USE CASES</a></div></div>
+<div class="nav-group relative w-full lg:w-auto" data-nav-group="support"><button aria-controls="nav-support-menu" aria-expanded="false" class="nav-group-button w-full lg:w-auto px-4 py-3 lg:py-2 rounded-lg flex items-center justify-between lg:justify-center gap-2 transition" id="nav-support-button" onclick="toggleNavGroup('support', event)" type="button">SUPPORT <span aria-hidden="true" class="nav-chevron transition-transform">▼</span></button><div class="nav-submenu hidden lg:absolute lg:top-full lg:right-0 lg:mt-2 lg:min-w-52 bg-white border border-slate-200 rounded-lg shadow-lg p-1 z-50" id="nav-support-menu" role="menu"><a class="nav-sub-link block px-4 py-3 lg:py-2 rounded-md" data-nav-page="contact" href="#contact" onclick="navigateTo('contact'); return false;" role="menuitem">CONTACT</a><a class="nav-sub-link block px-4 py-3 lg:py-2 rounded-md" data-nav-page="updates" href="#updates" onclick="navigateTo('updates'); return false;" role="menuitem">RELEASES &amp; UPDATES</a></div></div></nav>
+</div>
+</header>
+<div class="breadcrumb-shell mb-1" id="breadcrumb-shell">
+<nav aria-label="Breadcrumb" class="breadcrumb-nav hidden" id="breadcrumb-nav">
+<ol class="breadcrumb-list" id="breadcrumb-list"></ol>
+</nav>
+</div>
+<!-- MAIN MOUNT POINT -->
+<main class="flex-grow flex flex-col">
+<!-- ================= LOBBY (HOME) SECTION ================= -->
+<section class="flex flex-col gap-6 py-4" id="sect-home">
+<!-- Left Main Feature Details (Main Story) -->
+<div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm relative overflow-hidden">
+<span class="text-xs font-bold uppercase tracking-[0.2em] text-green-900">Welcome to the Site</span>
+<h2 class="tech-header text-2xl sm:text-3xl font-bold leading-tight mt-1 mb-3 text-slate-900">
                         Learn About Your Territory
                     </h2>
-                    <p class="text-sm text-slate-600 leading-relaxed mb-4 max-w-4xl">
-                        <strong>Organize your territory with confidence.</strong> The tools on this site are designed to help service overseers and their helpers make educated decisions on how to best map and organize their assigned territories. Our platform utilizes <a href="#" onclick="navigateTo('faq', 'faq-cat-data'); return false;" class="text-green-900 font-semibold hover:underline">public address point data</a> to accurately analyze neighborhood density and trends, improving the quality & reach of your local ministry.
+<p class="text-sm text-slate-600 leading-relaxed mb-4 max-w-4xl">
+<strong>Organize your territory with confidence.</strong> The tools on this site are designed to help service overseers and their helpers make educated decisions on how to best map and organize their assigned territories. Territory Toolbox uses <a class="text-green-900 font-semibold hover:underline" href="#faq/faq-cat-data" onclick="navigateTo('faq', 'faq-cat-data'); return false;">official public address-point data</a> to analyze neighborhood density and address patterns, helping improve the organization and reach of your local ministry.
                     </p>
-                    <div class="flex flex-wrap gap-4 pt-2">
-                        <span class="px-3 py-1.5 bg-white border border-slate-200 shadow-sm rounded-full text-xs text-slate-700 flex items-center gap-2">
-                            <span class="text-red-600 text-lg font-bold animate-pulse">!</span> Currently Supporting: Milwaukee County Only
-                        </span>
-                    </div>
-                </div>
-
-                <!-- Highlight Quote Block / Mission Parameter -->
-                <div class="border-l-4 border-green-900 cyber-panel shadow-sm p-5 rounded-xl">
-                    <p class="text-sm sm:text-base text-slate-800 leading-relaxed tech-header font-normal">
+<div class="flex flex-wrap gap-4 pt-2">
+<span class="px-3 py-1.5 bg-green-50 border border-green-200 shadow-sm rounded-full text-xs text-green-900 flex items-center gap-2"><svg aria-hidden="true" class="w-4 h-4 text-green-700" fill="none" focusable="false" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M12 21s6-5.1 6-11a6 6 0 10-12 0c0 5.9 6 11 6 11z" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="12" cy="10" r="2"></circle></svg><span><strong>Currently Supported:</strong> <a aria-label="View releases and updates for the two supported Wisconsin counties in a new tab" class="font-semibold underline decoration-green-400 underline-offset-2 hover:text-green-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 focus-visible:ring-offset-2 rounded-sm" href="#updates" rel="noopener noreferrer" target="_blank">2 Wisconsin Counties</a></span></span>
+</div>
+</div>
+<!-- Highlight Quote Block / Mission Parameter -->
+<div class="border-l-4 border-green-900 cyber-panel shadow-sm p-5 rounded-xl">
+<p class="text-sm sm:text-base text-slate-800 leading-relaxed tech-header font-normal">
                         “I did not hold back from telling you any of the things that were profitable nor from teaching … from house to house” <span class="data-font text-green-700 font-bold uppercase">- Acts 20:20</span>
-                    </p>
-                </div>
-
-                <!-- Core System Features (Cards) -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
-                    <!-- Card 1 -->
-                    <div class="p-5 rounded-xl cyber-panel flex flex-col justify-between shadow-sm">
-                        <div>
-                            <span class="data-font text-green-700 text-xs font-bold uppercase">Try the Analysis Tool</span>
-                            <h3 class="tech-header font-bold text-slate-900 mt-2 mb-2">Ready to go?</h3>
-                            <p class="text-xs text-slate-600 leading-relaxed mb-4">Skip the guesswork. Upload your boundary map and instantly matching it against verified 911 dispatch GIS data to generate an exact address count.</p>
-                        </div>
-                        <button onclick="navigateTo('analysis')" class="tactile-btn mt-auto w-full py-3 border border-green-600/30 hover:bg-green-50 text-green-700 text-[10px] font-bold uppercase tracking-wider rounded-lg transition duration-150">
+</p>
+</div>
+<!-- Core System Features (Cards) -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
+<!-- Card 1 -->
+<div class="p-5 rounded-xl cyber-panel flex flex-col justify-between shadow-sm">
+<div>
+<span class="data-font text-green-700 text-xs font-bold uppercase">Try the Analysis Tool</span>
+<h3 class="tech-header font-bold text-slate-900 mt-2 mb-2">Ready to go?</h3>
+<p class="text-xs text-slate-600 leading-relaxed mb-4">Skip the guesswork. Upload your boundary map and match it against official 911 dispatch GIS data to generate a detailed address count based on the records available.</p>
+</div>
+<button class="tactile-btn mt-auto w-full py-3 border border-green-600/30 hover:bg-green-50 text-green-700 text-[10px] font-bold uppercase tracking-wider rounded-lg transition duration-150" onclick="navigateTo('analysis')">
                             Start analyzing your territory now
                         </button>
-                    </div>
-
-                    <!-- Card 2 -->
-                    <div class="p-5 rounded-xl cyber-panel flex flex-col justify-between shadow-sm">
-                        <div>
-                            <span class="data-font text-green-700 text-xs font-bold uppercase">See an Example</span>
-                            <h3 class="tech-header font-bold text-slate-900 mt-2 mb-2">What will the tool output?</h3>
-                            <p class="text-xs text-slate-600 leading-relaxed mb-4">See a sample of the generated spreadsheet. Discover how the tool breaks down base houses, highlights multi-family apartments, and prepares ready-to-use lists for letter writing.</p>
-                        </div>
-                        <button onclick="navigateTo('sample')" class="tactile-btn mt-auto w-full py-3 border border-green-600/30 hover:bg-green-50 text-green-700 text-[10px] font-bold uppercase tracking-wider rounded-lg transition duration-150">
+</div>
+<!-- Card 2 -->
+<div class="p-5 rounded-xl cyber-panel flex flex-col justify-between shadow-sm">
+<div>
+<span class="data-font text-green-700 text-xs font-bold uppercase">See an Example</span>
+<h3 class="tech-header font-bold text-slate-900 mt-2 mb-2">What will the tool output?</h3>
+<p class="text-xs text-slate-600 leading-relaxed mb-4">Explore a sample spreadsheet. See how the engine sorts standard homes, isolates apartments, and creates clean, ready-to-use lists for your ministry.</p>
+</div>
+<button class="tactile-btn mt-auto w-full py-3 border border-green-600/30 hover:bg-green-50 text-green-700 text-[10px] font-bold uppercase tracking-wider rounded-lg transition duration-150" onclick="navigateTo('sample')">
                             View Sample Output
                         </button>
-                    </div>
-
-                    <!-- Card 3 -->
-                    <div class="p-5 rounded-xl cyber-panel flex flex-col justify-between shadow-sm">
-                        <div>
-                            <span class="data-font text-green-700 text-xs font-bold uppercase">Use Cases</span>
-                            <h3 class="tech-header font-bold text-slate-900 mt-2 mb-2">What practical ways can you use your territory analysis?</h3>
-                            <p class="text-xs text-slate-600 leading-relaxed mb-4">Learn how to use density trends to divide large territories, identify fast-growing residential zones, and assist publishers with highly accurate, up-to-date maps.</p>
-                        </div>
-                        <button onclick="navigateTo('usecases')" class="tactile-btn mt-auto w-full py-3 border border-green-600/30 hover:bg-green-50 text-green-700 text-[10px] font-bold uppercase tracking-wider rounded-lg transition duration-150">
+</div>
+<!-- Card 3 -->
+<div class="p-5 rounded-xl cyber-panel flex flex-col justify-between shadow-sm">
+<div>
+<span class="data-font text-green-700 text-xs font-bold uppercase">Use Cases</span>
+<h3 class="tech-header font-bold text-slate-900 mt-2 mb-2">Practical Applications for Your Ministry</h3>
+<p class="text-xs text-slate-600 leading-relaxed mb-4">See practical strategies for using your analysis: divide dense territories, map hidden duplexes and apartments, and create organized lists tailored for your publishers.</p>
+</div>
+<button class="tactile-btn mt-auto w-full py-3 border border-green-600/30 hover:bg-green-50 text-green-700 text-[10px] font-bold uppercase tracking-wider rounded-lg transition duration-150" onclick="navigateTo('usecases')">
                             Explore Use Cases
                         </button>
-                    </div>
-                </div>
-            </section>
-
-
-            <!-- ================= INTERACTIVE WORKSPACE: ANALYZER ================= -->
-            <section id="sect-analysis" class="hidden py-4">
-                <div class="max-w-4xl mx-auto flex flex-col gap-6">
-                    <div class="border-b border-slate-200 pb-4">
-                        <span class="text-xs font-bold uppercase tracking-widest text-green-700">Analysis Instructions</span>
-                        <h2 class="tech-header text-3xl font-bold text-slate-900 mt-1">Tool: Territory Analysis</h2>
-                        <p class="text-sm text-slate-600 mt-2 leading-relaxed">
-                            This tool cross-references your territory boundaries (KML file) with 911 Dispatch GIS points to give you an exact count of every deliverable address within your borders. Follow the simple steps below to process your map. This tool currently only works for territories within Milwaukee county, WI
+</div>
+</div>
+</section>
+<!-- ================= INTERACTIVE WORKSPACE: ANALYZER ================= -->
+<section class="hidden py-4" id="sect-analysis">
+<div class="max-w-4xl mx-auto flex flex-col gap-6">
+<div class="border-b border-slate-200 pb-4">
+<h2 class="tech-header text-3xl font-bold text-slate-900 mt-1">Territory Analyzer</h2>
+<p class="text-sm text-slate-600 mt-2 leading-relaxed">
+                            The Territory Analyzer takes your uploaded KML boundary map and matches it against official local address records to generate a clean, organized workbook for your review. Accuracy relies on clear map outlines and current source data. Territory Toolbox analyzes the borders you upload; it does not redraw or correct congregation territory boundaries.
                         </p>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
-                        <div class="p-5 bg-white border border-slate-200 rounded-xl shadow-sm flex flex-col gap-2">
-                            <span class="data-font text-green-700 text-sm font-bold uppercase">Step 01</span>
-                            <h3 class="tech-header font-bold text-slate-900">Download your KML</h3>
-                            <p class="text-xs text-slate-600 leading-relaxed">Export your territory boundaries from your mapping software as a standard .<a href="#" onclick="navigateTo('faq', 'faq-cat-kml'); return false;" class="text-green-700 font-semibold hover:underline">KML</a> file.</p>
-                        </div>
-                        <div class="p-5 bg-white border border-slate-200 rounded-xl shadow-sm flex flex-col gap-2">
-                            <span class="data-font text-green-700 text-sm font-bold uppercase">Step 02</span>
-                            <h3 class="tech-header font-bold text-slate-900">Upload to the Engine</h3>
-                            <p class="text-xs text-slate-600 leading-relaxed">Click the launch button to upload your file. To handle heavy geospatial processing, the analysis tool opens in a separate, dedicated window. The webpage may take a moment to load.</p>
-                        </div>
-                        <div class="p-5 bg-white border border-slate-200 rounded-xl shadow-sm flex flex-col gap-2">
-                            <span class="data-font text-green-700 text-sm font-bold uppercase">Step 03</span>
-                            <h3 class="tech-header font-bold text-slate-900">Export your Excel file</h3>
-                            <p class="text-xs text-slate-600 leading-relaxed">Once the audit is complete, download your generated Analysis Excel spreadsheet containing your precise insights.</p>
-                        </div>
-                    </div>
-
-                    <div class="mt-8 flex flex-col items-center gap-4">
-                        <button onclick="window.open('https://territorytoolbox-analysistool.streamlit.app/', '_blank')" class="tactile-btn px-10 py-4 bg-green-700 hover:bg-green-600 text-white font-bold uppercase tracking-wider rounded-xl shadow-md transition duration-150 text-sm flex items-center gap-2">
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
+<div class="p-5 bg-white border border-slate-200 rounded-xl shadow-sm flex flex-col gap-2">
+<span class="data-font text-green-700 text-sm font-bold uppercase">Step 01</span>
+<h3 class="tech-header font-bold text-slate-900">Enter Analysis Details</h3>
+<p class="text-xs text-slate-600 leading-relaxed">Tailor your analysis parameters by setting your congregation name, target address range, counties, and advanced exclusion filters.</p>
+</div>
+<div class="p-5 bg-white border border-slate-200 rounded-xl shadow-sm flex flex-col gap-2">
+<span class="data-font text-green-700 text-sm font-bold uppercase">Step 02</span>
+<h3 class="tech-header font-bold text-slate-900">Upload Your Territory Map</h3>
+<p class="text-xs text-slate-600 leading-relaxed">Upload one or more <a class="text-green-700 font-semibold underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-700 focus-visible:ring-offset-2 rounded-sm" href="#faq/faq-6" onclick="navigateTo('faq', 'faq-6'); return false;">KML</a> territory boundary files. The Analyzer reads your territory outlines and prepares them for processing.</p>
+</div>
+<div class="p-5 bg-white border border-slate-200 rounded-xl shadow-sm flex flex-col gap-2">
+<span class="data-font text-green-700 text-sm font-bold uppercase">Step 03</span>
+<h3 class="tech-header font-bold text-slate-900">Download Your Analysis Workbook</h3>
+<p class="text-xs text-slate-600 leading-relaxed">Receive a fully organized Excel workbook containing dashboards, address lists, apartment groupings, territory statistics, balancing recommendations, and audit tabs for review.</p>
+</div>
+</div>
+<div class="mt-8 flex flex-col items-center gap-4">
+<a class="tactile-btn px-10 py-4 bg-green-700 hover:bg-green-600 text-white font-bold uppercase tracking-wider rounded-xl shadow-md transition duration-150 text-sm flex items-center gap-2 text-center" href="https://territorytoolbox-analysistool.streamlit.app/" rel="noreferrer noopener" target="_blank">
                             Launch Analyzer Engine →
-                        </button>
-                        <a href="#" onclick="navigateTo('faq', 'faq-cat-analysis'); return false;" class="text-sm text-green-700 hover:underline font-medium">Stuck? See the FAQ’S</a>
-                    </div>
-                </div>
-            </section>
-
-
-            <!-- ================= INTERACTIVE WORKSPACE: IMPORTER ================= -->
-            <section id="sect-importer" class="hidden py-4">
-                <div class="max-w-4xl mx-auto flex flex-col gap-6">
-                    <div class="border-b border-slate-200 pb-4">
-                        <span class="text-xs font-bold uppercase tracking-widest text-green-700">Instructions</span>
-                        <h2 class="tech-header text-3xl font-bold text-slate-900 mt-1">New World Scheduler (NWS) Address Importer</h2>
-                        <p class="text-sm text-slate-600 mt-2 leading-relaxed">
-                            Once you have generated your territory analysis spreadsheet, you can easily reformat that data to import smoothly into NW Scheduler. This landing tool takes the raw address dataset from your analysis and restructures it into a format NWS software can read! 
-                        </p>
-                        <p class="text-sm text-slate-600 mt-2 leading-relaxed">
-                            Follow the simple steps below to format your files. To ensure rapid processing without data limits, the conversion tool opens in a separate, dedicated window.
-                        </p>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
-                        <div class="p-5 bg-white border border-slate-200 rounded-xl shadow-sm flex flex-col gap-2">
-                            <span class="data-font text-green-700 text-sm font-bold uppercase">Step 01</span>
-                            <h3 class="tech-header font-bold text-slate-900">Export from NWS</h3>
-                            <p class="text-xs text-slate-600 leading-relaxed">Download your current "Territory" Export file directly from your NWS desktop app. This file should be a CSV.</p>
-                        </div>
-                        <div class="p-5 bg-white border border-slate-200 rounded-xl shadow-sm flex flex-col gap-2">
-                            <span class="data-font text-green-700 text-sm font-bold uppercase">Step 02</span>
-                            <h3 class="tech-header font-bold text-slate-900">Upload your Data</h3>
-                            <p class="text-xs text-slate-600 leading-relaxed">Save your territory analysis spreadsheet as a CSV file. Upload both your Territory Analysis CSV and your NWS Territory Export CSV.</p>
-                        </div>
-                        <div class="p-5 bg-white border border-slate-200 rounded-xl shadow-sm flex flex-col gap-2">
-                            <span class="data-font text-green-700 text-sm font-bold uppercase">Step 03</span>
-                            <h3 class="tech-header font-bold text-slate-900">Download Formatted List</h3>
-                            <p class="text-xs text-slate-600 leading-relaxed">Download the resulting NWS "Address" Import file, fully ready to be uploaded into NWS. See <a href="#" onclick="navigateTo('faq', 'faq-cat-importer'); return false;" class="text-green-700 font-semibold hover:underline">FAQ</a> for further direction if needed.</p>
-                        </div>
-                    </div>
-
-                    <div class="mt-8 flex flex-col items-center gap-4">
-                        <button onclick="window.open('https://mke-nws-import.streamlit.app/', '_blank')" class="tactile-btn px-10 py-4 bg-green-700 hover:bg-green-600 text-white font-bold uppercase tracking-wider rounded-xl shadow-md transition duration-150 text-sm flex items-center gap-2">
+                        </a>
+<a class="text-sm text-green-700 hover:underline font-medium" href="#faq/faq-cat-analysis" onclick="navigateTo('faq', 'faq-cat-analysis'); return false;">Stuck? See the FAQs</a>
+</div>
+</div>
+</section>
+<!-- ================= INTERACTIVE WORKSPACE: IMPORTER ================= -->
+<section class="hidden py-4" id="sect-importer">
+<div class="max-w-4xl mx-auto flex flex-col gap-6">
+<div class="border-b border-slate-200 pb-4">
+<h2 class="tech-header text-3xl font-bold text-slate-900 mt-1">New World Scheduler (NWS) Address Importer</h2>
+<p class="text-sm text-slate-600 mt-2 leading-relaxed">Turn your territory analysis workbook into a ready-to-use import file for New World Scheduler in seconds. This utility reformats your raw address data so it matches the exact structure required by NWS.</p>
+<p class="text-xs text-slate-500 mt-3 leading-relaxed">TerritoryToolbox is a standalone project and has no formal partnership, association, or affiliation with New World Scheduler.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
+<div class="p-5 bg-white border border-slate-200 rounded-xl shadow-sm flex flex-col gap-2">
+<span class="data-font text-green-700 text-sm font-bold uppercase">Step 01</span>
+<h3 class="tech-header font-bold text-slate-900">Export from NWS</h3>
+<p class="text-xs text-slate-600 leading-relaxed">Download your current “Territory” export file as a CSV directly from your New World Scheduler desktop app.</p>
+</div>
+<div class="p-5 bg-white border border-slate-200 rounded-xl shadow-sm flex flex-col gap-2">
+<span class="data-font text-green-700 text-sm font-bold uppercase">Step 02</span>
+<h3 class="tech-header font-bold text-slate-900">Upload Your Analysis Workbook</h3>
+<p class="text-xs text-slate-600 leading-relaxed">Ensure tab 3 of your workbook hasn’t undergone heavy edits or data may be lost!</p>
+</div>
+<div class="p-5 bg-white border border-slate-200 rounded-xl shadow-sm flex flex-col gap-2">
+<span class="data-font text-green-700 text-sm font-bold uppercase">Step 03</span>
+<h3 class="tech-header font-bold text-slate-900">Get Your Import File</h3>
+<p class="text-xs text-slate-600 leading-relaxed">Download your ready-to-import New World Scheduler file. Optionally, grab the audit workbook to review import breakdowns. See <a class="text-green-700 font-semibold underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-700 focus-visible:ring-offset-2 rounded-sm" href="#faq/faq-cat-importer" onclick="navigateTo('faq', 'faq-cat-importer'); return false;">FAQ</a> for further direction if needed.</p>
+</div>
+</div>
+<div class="mt-8 flex flex-col items-center gap-4">
+<a class="tactile-btn px-10 py-4 bg-green-700 hover:bg-green-600 text-white font-bold uppercase tracking-wider rounded-xl shadow-md transition duration-150 text-sm flex items-center gap-2 text-center" href="https://territorytoolbox-nwsimporter-tool.streamlit.app/" rel="noopener noreferrer" target="_blank">
                             Launch Importer Engine →
-                        </button>
-                        <a href="#" onclick="navigateTo('faq', 'faq-cat-importer'); return false;" class="text-sm text-green-700 hover:underline font-medium">Stuck? See the FAQ’S</a>
-                    </div>
-                </div>
-            </section>
-
-
-            <!-- ================= INTERACTIVE WORKSPACE: FAQ ================= -->
-            <section id="sect-faq" class="hidden py-4">
-                <div class="max-w-4xl mx-auto flex flex-col gap-2">
-                    <div class="border-b border-slate-200 pb-3 mb-2 text-center">
-                        <h2 class="tech-header text-3xl font-bold text-slate-900 mt-1">Frequently Asked Questions</h2>
-                    </div>
-
-                    <!-- Category: DATA & PRIVACY -->
-                    <button onclick="toggleCategory('data')" class="w-full text-left flex justify-between items-center mt-1 p-4 bg-green-800 text-white rounded-xl shadow-sm hover:bg-green-900 transition scroll-mt-24 group">
-                        <h3 id="faq-cat-data" class="tech-header text-lg font-bold tracking-wide">Data & Privacy</h3>
-                        <span id="cat-arrow-data" class="transition-transform duration-200">▼</span>
-                    </button>
-                    <div id="cat-content-data" class="hidden flex flex-col gap-2 mt-1">
-                        <div class="border border-slate-200 rounded-xl bg-white shadow-sm overflow-hidden">
-                            <button onclick="toggleFaq(1)" class="w-full p-4 text-left flex justify-between items-center hover:bg-slate-50 transition">
-                                <span class="tech-header font-bold text-green-800 pr-4">Where does Territory Toolbox get its data?</span>
-                                <span id="faq-arrow-1" class="text-green-800 transition-transform duration-200 shrink-0">▼</span>
-                            </button>
-                            <div id="faq-answer-1" class="hidden p-4 border-t border-slate-200 bg-slate-100 text-sm text-slate-700 leading-relaxed">
-                                <strong>Territory Toolbox gets its data from public sources.</strong> We strive to get accurate “address point” data straight from the cities or counties we’re mapping, preferring NG911 databases when available. We try to stay away from open source maps that rely on user input, as well as tax records that, while more accurate, struggle with identifying multifamilies/unit numbers. 
+                        </a>
+<a class="text-sm text-green-700 hover:underline font-medium" href="#faq/faq-cat-importer" onclick="navigateTo('faq', 'faq-cat-importer'); return false;">Stuck? See the FAQs</a>
+</div>
+</div>
+</section>
+<!-- ================= INTERACTIVE WORKSPACE: FAQ ================= -->
+<section class="hidden py-4" id="sect-faq">
+<div class="max-w-4xl mx-auto flex flex-col gap-2">
+<div class="border-b border-slate-200 pb-3 mb-2 text-center">
+<h2 class="tech-header text-3xl font-bold text-slate-900 mt-1">Frequently Asked Questions</h2>
+</div>
+<!-- Category: DATA & PRIVACY -->
+<button aria-controls="cat-content-data" aria-expanded="false" class="w-full text-left flex justify-between items-center mt-1 p-4 bg-green-800 text-white rounded-xl shadow-sm hover:bg-green-900 transition scroll-mt-24 group" id="cat-button-data" onclick="toggleCategory('data')">
+<h3 class="tech-header text-lg font-bold tracking-wide" id="faq-cat-data">Data &amp; Privacy</h3>
+<span class="transition-transform duration-200" id="cat-arrow-data">▼</span>
+</button>
+<div aria-labelledby="cat-button-data" class="hidden flex flex-col gap-2 mt-1" id="cat-content-data" role="region">
+<div class="border border-slate-200 rounded-xl bg-white shadow-sm overflow-hidden">
+<button aria-controls="faq-answer-1" aria-expanded="false" class="w-full p-4 text-left flex justify-between items-center hover:bg-slate-50 transition" id="faq-button-1" onclick="toggleFaq(1)">
+<span class="tech-header font-bold text-green-800 pr-4">Where does Territory Toolbox get its data?</span>
+<span class="text-green-800 transition-transform duration-200 shrink-0" id="faq-arrow-1">▼</span>
+</button>
+<div aria-labelledby="faq-button-1" class="hidden p-4 border-t border-slate-200 bg-slate-100 text-sm text-slate-700 leading-relaxed" id="faq-answer-1" role="region">
+<strong>Territory Toolbox gets its data from public sources.</strong> We strive to get accurate “address point” data straight from the cities or counties we’re mapping, preferring NG911 databases when available. We try to stay away from open source maps that rely on user input, as well as tax records that, while more accurate, struggle with identifying multifamilies/unit numbers. 
                             </div>
-                        </div>
-                        <div class="border border-slate-200 rounded-xl bg-white shadow-sm overflow-hidden">
-                            <button onclick="toggleFaq(2)" class="w-full p-4 text-left flex justify-between items-center hover:bg-slate-50 transition">
-                                <span class="tech-header font-bold text-green-800 pr-4">Why are my territory addresses not accurate?</span>
-                                <span id="faq-arrow-2" class="text-green-800 transition-transform duration-200 shrink-0">▼</span>
-                            </button>
-                            <div id="faq-answer-2" class="hidden p-4 border-t border-slate-200 bg-slate-100 text-sm text-slate-700 leading-relaxed">
-                                If you notice discrepancies, it is usually due to one of these three factors:
-                                <ul class="list-disc pl-5 mt-3 space-y-2">
-                                    <li><strong>Outdated KML Borders:</strong> If your territory boundaries haven't been updated to reflect the latest neighborhood changes, the tool will still scan the area precisely as defined by your uploaded file.</li>
-                                    <li><strong>Mistaken Excluded Address:</strong> To paint a more accurate picture of the workable addresses in your territory, not every single individual address is put into the “Address List” tab. For example, an address that is classified as a park will not be added to the “Address List”. If there are missing addresses, check the “Excluded Audit” tab.</li>
-                                    <li><strong>Data Refresh Timing:</strong> Our records are updated periodically based on county releases. Very recent new construction may take a short time to appear in the official database. Take a look at our release notes for specifics data information.</li>
-                                </ul>
+</div>
+<div class="border border-slate-200 rounded-xl bg-white shadow-sm overflow-hidden">
+<button aria-controls="faq-answer-2" aria-expanded="false" class="w-full p-4 text-left flex justify-between items-center hover:bg-slate-50 transition" id="faq-button-2" onclick="toggleFaq(2)">
+<span class="tech-header font-bold text-green-800 pr-4">Why are my territory addresses not accurate?</span>
+<span class="text-green-800 transition-transform duration-200 shrink-0" id="faq-arrow-2">▼</span>
+</button>
+<div aria-labelledby="faq-button-2" class="hidden p-4 border-t border-slate-200 bg-slate-100 text-sm text-slate-700 leading-relaxed" id="faq-answer-2" role="region">
+<p>If you notice discrepancies, it is usually due to one of these three factors:</p>
+<ul class="list-disc pl-5 mt-3 space-y-2">
+<li><strong>Outdated KML Borders:</strong> If your territory boundaries haven't been updated to reflect the latest neighborhood changes, the tool will still scan the area precisely as defined by your uploaded file.</li>
+<li><strong>Mistaken Excluded Address:</strong> To paint a more accurate picture of the workable addresses in your territory, not every single individual address is put into the “Address List” tab. For example, when specific data is available, an address classified as a park will not be added to the “Address List.” If there are missing addresses, check the “Excluded Audit” tab.</li>
+<li><strong>Data Refresh Timing:</strong> Our records are updated periodically based on county releases. Very recent new construction may take a short time to appear in the official database. Take a look at our <a class="text-green-800 font-semibold underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-700 focus-visible:ring-offset-2 rounded-sm" href="#updates" onclick="navigateTo('updates'); return false;">release notes</a> for specific data information.</li>
+</ul></div>
+</div>
+<div class="border border-slate-200 rounded-xl bg-white shadow-sm overflow-hidden">
+<button aria-controls="faq-answer-3" aria-expanded="false" class="w-full p-4 text-left flex justify-between items-center hover:bg-slate-50 transition" id="faq-button-3" onclick="toggleFaq(3)">
+<span class="tech-header font-bold text-green-800 pr-4">Does this website store my uploaded maps or address data?</span>
+<span class="text-green-800 transition-transform duration-200 shrink-0" id="faq-arrow-3">▼</span>
+</button>
+<div aria-labelledby="faq-button-3" class="hidden p-4 border-t border-slate-200 bg-slate-100 text-sm text-slate-700 leading-relaxed" id="faq-answer-3" role="region">
+<strong>No. All tools are designed with a "session-only" architecture.</strong> When you upload your KML file, it is processed in your current browser session to generate your analysis. As soon as you close your browser tab or refresh the page, all uploaded files and generated data are cleared from our temporary processing environment. 
                             </div>
-                        </div>
-                        <div class="border border-slate-200 rounded-xl bg-white shadow-sm overflow-hidden">
-                            <button onclick="toggleFaq(3)" class="w-full p-4 text-left flex justify-between items-center hover:bg-slate-50 transition">
-                                <span class="tech-header font-bold text-green-800 pr-4">Does this website store my uploaded maps or address data?</span>
-                                <span id="faq-arrow-3" class="text-green-800 transition-transform duration-200 shrink-0">▼</span>
-                            </button>
-                            <div id="faq-answer-3" class="hidden p-4 border-t border-slate-200 bg-slate-100 text-sm text-slate-700 leading-relaxed">
-                                <strong>No. All tools are designed with a "session-only" architecture.</strong> When you upload your KML file, it is processed in your current browser session to generate your analysis. As soon as you close your browser tab or refresh the page, all uploaded files and generated data are cleared from our temporary processing environment. 
+</div>
+<div class="border border-slate-200 rounded-xl bg-white shadow-sm overflow-hidden">
+<button aria-controls="faq-answer-4" aria-expanded="false" class="w-full p-4 text-left flex justify-between items-center hover:bg-slate-50 transition" id="faq-button-4" onclick="toggleFaq(4)">
+<span class="tech-header font-bold text-green-800 pr-4">Is this tool restricted to certain cities, counties, or states?</span>
+<span class="text-green-800 transition-transform duration-200 shrink-0" id="faq-arrow-4">▼</span>
+</button>
+<div aria-labelledby="faq-button-4" class="hidden p-4 border-t border-slate-200 bg-slate-100 text-sm text-slate-700 leading-relaxed" id="faq-answer-4" role="region">
+<p><strong>At the moment, yes.</strong> Take a look at our <a class="text-green-800 font-semibold underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-700 focus-visible:ring-offset-2 rounded-sm" href="#updates" onclick="navigateTo('updates'); return false;">release notes</a> to see which specific areas are supported. If you are looking to expand coverage to other areas, please <a class="text-green-800 font-semibold underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-700 focus-visible:ring-offset-2 rounded-sm" href="#contact" onclick="navigateTo('contact'); return false;">contact us</a> to discuss potential expansions.</p></div>
+</div>
+<div class="border border-slate-200 rounded-xl bg-white shadow-sm overflow-hidden">
+<button aria-controls="faq-answer-5" aria-expanded="false" class="w-full p-4 text-left flex justify-between items-center hover:bg-slate-50 transition" id="faq-button-5" onclick="toggleFaq(5)">
+<span class="tech-header font-bold text-green-800 pr-4">How often is the underlying address data updated?</span>
+<span class="text-green-800 transition-transform duration-200 shrink-0" id="faq-arrow-5">▼</span>
+</button>
+<div aria-labelledby="faq-button-5" class="hidden p-4 border-t border-slate-200 bg-slate-100 text-sm text-slate-700 leading-relaxed" id="faq-answer-5" role="region">
+<strong>While we cannot provide real-time updates, we regularly refresh our datasets</strong> to ensure that the counts and address lists you generate reflect the most current residential layout available from county records. You can see our release notes &amp; data here. If the data you are working with is significantly outdated, please contact us.
                             </div>
-                        </div>
-                        <div class="border border-slate-200 rounded-xl bg-white shadow-sm overflow-hidden">
-                            <button onclick="toggleFaq(4)" class="w-full p-4 text-left flex justify-between items-center hover:bg-slate-50 transition">
-                                <span class="tech-header font-bold text-green-800 pr-4">Is this tool restricted to certain cities, counties, or states?</span>
-                                <span id="faq-arrow-4" class="text-green-800 transition-transform duration-200 shrink-0">▼</span>
-                            </button>
-                            <div id="faq-answer-4" class="hidden p-4 border-t border-slate-200 bg-slate-100 text-sm text-slate-700 leading-relaxed">
-                                <strong>At the moment, yes.</strong> Take a look at our release notes to see which specific areas are supported. If you are looking to expand coverage to other areas, please contact us to discuss potential expansions.
+</div>
+</div>
+<!-- Category: MAPS & FORMATS -->
+<button aria-controls="cat-content-kml" aria-expanded="false" class="w-full text-left flex justify-between items-center mt-1 p-4 bg-green-800 text-white rounded-xl shadow-sm hover:bg-green-900 transition scroll-mt-24 group" id="cat-button-kml" onclick="toggleCategory('kml')">
+<h3 class="tech-header text-lg font-bold tracking-wide" id="faq-cat-kml">Maps &amp; Formats</h3>
+<span class="transition-transform duration-200" id="cat-arrow-kml">▼</span>
+</button>
+<div aria-labelledby="cat-button-kml" class="hidden flex flex-col gap-2 mt-1" id="cat-content-kml" role="region">
+<div class="border border-slate-200 rounded-xl bg-white shadow-sm overflow-hidden">
+<button aria-controls="faq-answer-6" aria-expanded="false" class="w-full p-4 text-left flex justify-between items-center hover:bg-slate-50 transition" id="faq-button-6" onclick="toggleFaq(6)">
+<span class="tech-header font-bold text-green-800 pr-4">What is a KML file?</span>
+<span class="text-green-800 transition-transform duration-200 shrink-0" id="faq-arrow-6">▼</span>
+</button>
+<div aria-labelledby="faq-button-6" class="hidden p-4 border-t border-slate-200 bg-slate-100 text-sm text-slate-700 leading-relaxed" id="faq-answer-6" role="region">
+<strong>A KML (Keyhole Markup Language) file is essentially a "digital map outline."</strong> It stores geographic data, such as your specific territory boundaries, in a format that map applications like Google Earth or Google My Maps can read. Our tool uses these KML files to know exactly where your territory borders are, so it can look up the correct address data for that precise area.
                             </div>
-                        </div>
-                        <div class="border border-slate-200 rounded-xl bg-white shadow-sm overflow-hidden">
-                            <button onclick="toggleFaq(5)" class="w-full p-4 text-left flex justify-between items-center hover:bg-slate-50 transition">
-                                <span class="tech-header font-bold text-green-800 pr-4">How often is the underlying address data updated?</span>
-                                <span id="faq-arrow-5" class="text-green-800 transition-transform duration-200 shrink-0">▼</span>
-                            </button>
-                            <div id="faq-answer-5" class="hidden p-4 border-t border-slate-200 bg-slate-100 text-sm text-slate-700 leading-relaxed">
-                                <strong>While we cannot provide real-time updates, we regularly refresh our datasets</strong> to ensure that the counts and address lists you generate reflect the most current residential layout available from county records. You can see our release notes & data here. If the data you are working with is significantly outdated, please contact us.
+</div>
+<div class="border border-slate-200 rounded-xl bg-white shadow-sm overflow-hidden">
+<button aria-controls="faq-answer-7" aria-expanded="false" class="w-full p-4 text-left flex justify-between items-center hover:bg-slate-50 transition" id="faq-button-7" onclick="toggleFaq(7)">
+<span class="tech-header font-bold text-green-800 pr-4">What if I don't have a KML ready?</span>
+<span class="text-green-800 transition-transform duration-200 shrink-0" id="faq-arrow-7">▼</span>
+</button>
+<div aria-labelledby="faq-button-7" class="hidden p-4 border-t border-slate-200 bg-slate-100 text-sm text-slate-700 leading-relaxed" id="faq-answer-7" role="region">
+<p>If your territories are saved online in any way, such as with TerritoryHelper or another program, there is likely an “export to KML” feature. It’s worth the time to check thoroughly for this.</p>
+<p class="mt-3">See “<a class="text-green-800 font-semibold underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-700 focus-visible:ring-offset-2 rounded-sm" href="#faq/faq-15" onclick="navigateTo('faq', 'faq-15'); return false;">What if my territories are on paper only?</a>” under Using the Analyzer.</p></div>
+</div>
+<div class="border border-slate-200 rounded-xl bg-white shadow-sm overflow-hidden">
+<button aria-controls="faq-answer-8" aria-expanded="false" class="w-full p-4 text-left flex justify-between items-center hover:bg-slate-50 transition" id="faq-button-8" onclick="toggleFaq(8)">
+<span class="tech-header font-bold text-green-800 pr-4">What is a CSV file?</span>
+<span class="text-green-800 transition-transform duration-200 shrink-0" id="faq-arrow-8">▼</span>
+</button>
+<div aria-labelledby="faq-button-8" class="hidden p-4 border-t border-slate-200 bg-slate-100 text-sm text-slate-700 leading-relaxed" id="faq-answer-8" role="region">
+<strong>A CSV (Comma-Separated Values) file is a simple, universal spreadsheet format.</strong> Think of it as a bare-bones version of an Excel file that holds data in rows and columns separated by commas. It is the industry standard for moving data between different applications—like exporting your analyzed territory from our tool and importing it directly into your management software.
                             </div>
-                        </div>
-                    </div>
-
-                    <!-- Category: MAPS & FORMATS -->
-                    <button onclick="toggleCategory('kml')" class="w-full text-left flex justify-between items-center mt-1 p-4 bg-green-800 text-white rounded-xl shadow-sm hover:bg-green-900 transition scroll-mt-24 group">
-                        <h3 id="faq-cat-kml" class="tech-header text-lg font-bold tracking-wide">Maps & Formats</h3>
-                        <span id="cat-arrow-kml" class="transition-transform duration-200">▼</span>
-                    </button>
-                    <div id="cat-content-kml" class="hidden flex flex-col gap-2 mt-1">
-                        <div class="border border-slate-200 rounded-xl bg-white shadow-sm overflow-hidden">
-                            <button onclick="toggleFaq(6)" class="w-full p-4 text-left flex justify-between items-center hover:bg-slate-50 transition">
-                                <span class="tech-header font-bold text-green-800 pr-4">What is a KML file?</span>
-                                <span id="faq-arrow-6" class="text-green-800 transition-transform duration-200 shrink-0">▼</span>
-                            </button>
-                            <div id="faq-answer-6" class="hidden p-4 border-t border-slate-200 bg-slate-100 text-sm text-slate-700 leading-relaxed">
-                                <strong>A KML (Keyhole Markup Language) file is essentially a "digital map outline."</strong> It stores geographic data, such as your specific territory boundaries, in a format that map applications like Google Earth or Google My Maps can read. Our tool uses these KML files to know exactly where your territory borders are, so it can look up the correct address data for that precise area.
+</div>
+<div class="border border-slate-200 rounded-xl bg-white shadow-sm overflow-hidden">
+<button aria-controls="faq-answer-9" aria-expanded="false" class="w-full p-4 text-left flex justify-between items-center hover:bg-slate-50 transition" id="faq-button-9" onclick="toggleFaq(9)">
+<span class="tech-header font-bold text-green-800 pr-4">I don’t have Microsoft Excel!</span>
+<span class="text-green-800 transition-transform duration-200 shrink-0" id="faq-arrow-9">▼</span>
+</button>
+<div aria-labelledby="faq-button-9" class="hidden p-4 border-t border-slate-200 bg-slate-100 text-sm text-slate-700 leading-relaxed" id="faq-answer-9" role="region">
+<strong>You don't need it.</strong> While our tool outputs files in the standard .xlsx (Excel) format, these files can be opened and edited for free using Google Sheets, LibreOffice, or Apple Numbers. Any software that can open a standard spreadsheet will allow you to view, filter, and work with your territory analysis data perfectly.
                             </div>
-                        </div>
-                        <div class="border border-slate-200 rounded-xl bg-white shadow-sm overflow-hidden">
-                            <button onclick="toggleFaq(7)" class="w-full p-4 text-left flex justify-between items-center hover:bg-slate-50 transition">
-                                <span class="tech-header font-bold text-green-800 pr-4">What if I don't have a KML ready?</span>
-                                <span id="faq-arrow-7" class="text-green-800 transition-transform duration-200 shrink-0">▼</span>
-                            </button>
-                            <div id="faq-answer-7" class="hidden p-4 border-t border-slate-200 bg-slate-100 text-sm text-slate-700 leading-relaxed">
-                                <strong>If your territories are saved online in any way</strong> (such as with TerritoryHelper or another program), <strong>there is more-likely-than-not an “export to KML” feature.</strong> It’s worth the time to check thoroughly for this. <br><br>
-                                See “What if my territories are on-paper only?” under Using the Analyzer.
+</div>
+<div class="border border-slate-200 rounded-xl bg-white shadow-sm overflow-hidden">
+<button aria-controls="faq-answer-10" aria-expanded="false" class="w-full p-4 text-left flex justify-between items-center hover:bg-slate-50 transition" id="faq-button-10" onclick="toggleFaq(10)">
+<span class="tech-header font-bold text-green-800 pr-4">How do I export my KML file from Google?</span>
+<span class="text-green-800 transition-transform duration-200 shrink-0" id="faq-arrow-10">▼</span>
+</button>
+<div aria-labelledby="faq-button-10" class="hidden p-4 border-t border-slate-200 bg-slate-100 text-sm text-slate-700 leading-relaxed" id="faq-answer-10" role="region">
+<ul class="list-disc pl-5 space-y-2">
+<li><strong>In Google My Maps:</strong> Open your map, click the three-dot menu icon (next to the map name), and select "Export to KML/KMZ." Make sure to select the option to export as KML (not KMZ) for the best compatibility.</li>
+<li><strong>In Google Earth:</strong> Right-click the folder or layer you want to export in the sidebar, select "Save Place As," and choose "KML (*.kml)" from the file type dropdown menu.</li>
+</ul>
+</div>
+</div>
+<div class="border border-slate-200 rounded-xl bg-white shadow-sm overflow-hidden">
+<button aria-controls="faq-answer-11" aria-expanded="false" class="w-full p-4 text-left flex justify-between items-center hover:bg-slate-50 transition" id="faq-button-11" onclick="toggleFaq(11)">
+<span class="tech-header font-bold text-green-800 pr-4">Can I upload a KMZ file instead of a KML file?</span>
+<span class="text-green-800 transition-transform duration-200 shrink-0" id="faq-arrow-11">▼</span>
+</button>
+<div aria-labelledby="faq-button-11" class="hidden p-4 border-t border-slate-200 bg-slate-100 text-sm text-slate-700 leading-relaxed" id="faq-answer-11" role="region">
+<strong>For the best results, please use a .kml file.</strong> A KMZ file is a compressed "zipped" folder containing the KML file and other potential data (like custom icons or photos). Because our engine is designed to parse the raw boundary coordinates directly, the uncompressed .kml format is much more reliable. If you have a .kmz, you can usually convert it by simply renaming the file extension from .kmz to .zip, unzipping it, and pulling out the doc.kml file inside.
                             </div>
-                        </div>
-                        <div class="border border-slate-200 rounded-xl bg-white shadow-sm overflow-hidden">
-                            <button onclick="toggleFaq(8)" class="w-full p-4 text-left flex justify-between items-center hover:bg-slate-50 transition">
-                                <span class="tech-header font-bold text-green-800 pr-4">What is a CSV file?</span>
-                                <span id="faq-arrow-8" class="text-green-800 transition-transform duration-200 shrink-0">▼</span>
-                            </button>
-                            <div id="faq-answer-8" class="hidden p-4 border-t border-slate-200 bg-slate-100 text-sm text-slate-700 leading-relaxed">
-                                <strong>A CSV (Comma-Separated Values) file is a simple, universal spreadsheet format.</strong> Think of it as a bare-bones version of an Excel file that holds data in rows and columns separated by commas. It is the industry standard for moving data between different applications—like exporting your analyzed territory from our tool and importing it directly into your management software.
+</div>
+</div>
+<!-- Category: USING THE ANALYZER -->
+<button aria-controls="cat-content-analysis" aria-expanded="false" class="w-full text-left flex justify-between items-center mt-1 p-4 bg-green-800 text-white rounded-xl shadow-sm hover:bg-green-900 transition scroll-mt-24 group" id="cat-button-analysis" onclick="toggleCategory('analysis')">
+<h3 class="tech-header text-lg font-bold tracking-wide" id="faq-cat-analysis">Using The Analyzer</h3>
+<span class="transition-transform duration-200" id="cat-arrow-analysis">▼</span>
+</button>
+<div aria-labelledby="cat-button-analysis" class="hidden flex flex-col gap-2 mt-1" id="cat-content-analysis" role="region">
+<div class="border border-slate-200 rounded-xl bg-white shadow-sm overflow-hidden">
+<button aria-controls="faq-answer-12" aria-expanded="false" class="w-full p-4 text-left flex justify-between items-center hover:bg-slate-50 transition" id="faq-button-12" onclick="toggleFaq(12)">
+<span class="tech-header font-bold text-green-800 pr-4">What do the different tabs mean?</span>
+<span class="text-green-800 transition-transform duration-200 shrink-0" id="faq-arrow-12">▼</span>
+</button>
+<div aria-labelledby="faq-button-12" class="hidden p-4 border-t border-slate-200 bg-slate-100 text-sm text-slate-700 leading-relaxed" id="faq-answer-12" role="region">
+<p>Your analysis file is structured to give you a complete view of your territory:</p>
+<ul class="list-disc pl-5 mt-3 space-y-2">
+<li><strong>Dashboard:</strong> Provides a high-level overview of the analysis, including quick facts, summary statistics, and technical run settings.</li>
+<li><strong>Counts Tab:</strong> Organizes your territories by size, displaying address density, current status, such as Oversized or Ideal, and suggested actions.</li>
+<li><strong>Address List Tab:</strong> Contains the master list of all workable addresses found within your boundaries, ready for final sorting or filtering.</li>
+<li><strong>Apartments Tab:</strong> Surfaces larger multifamily groupings, consisting of five or more units, for easier organization and highlights their impact on your territory counts.</li>
+<li><strong>Territory Balancing:</strong> Offers actionable recommendations and projections on how shifting specific high-density buildings can help balance oversized territories.</li>
+<li><strong>Excluded Audit Tab:</strong> Lists addresses flagged for exclusion, such as vacant lots, parks, or addresses that fall outside your drawn boundaries.</li>
+<li><strong>Overlap Audit:</strong> Identifies specific addresses that are caught in overlapping territory boundaries so you can cleanly resolve mapping conflicts.</li>
+<li><strong>County Duplicate Audit:</strong> Highlights potential duplicate addresses found when analyzing maps that cross multiple county datasets.</li>
+</ul></div>
+</div>
+<div class="border border-slate-200 rounded-xl bg-white shadow-sm overflow-hidden">
+<button aria-controls="faq-answer-13" aria-expanded="false" class="w-full p-4 text-left flex justify-between items-center hover:bg-slate-50 transition" id="faq-button-13" onclick="toggleFaq(13)">
+<span class="tech-header font-bold text-green-800 pr-4">Why do my apartment complexes or duplexes look separate?</span>
+<span class="text-green-800 transition-transform duration-200 shrink-0" id="faq-arrow-13">▼</span>
+</button>
+<div aria-labelledby="faq-button-13" class="hidden p-4 border-t border-slate-200 bg-slate-100 text-sm text-slate-700 leading-relaxed" id="faq-answer-13" role="region">
+<strong>Each unit in a multifamily has its own address line.</strong> This is so each unit is counted as its own address/door. Oftentimes, these are the hard-to-find addresses that would not show up on tax records. If the multifamily has at least 5 units, it'll be placed on the apartment tab.
                             </div>
-                        </div>
-                        <div class="border border-slate-200 rounded-xl bg-white shadow-sm overflow-hidden">
-                            <button onclick="toggleFaq(9)" class="w-full p-4 text-left flex justify-between items-center hover:bg-slate-50 transition">
-                                <span class="tech-header font-bold text-green-800 pr-4">I don’t have Microsoft Excel!</span>
-                                <span id="faq-arrow-9" class="text-green-800 transition-transform duration-200 shrink-0">▼</span>
-                            </button>
-                            <div id="faq-answer-9" class="hidden p-4 border-t border-slate-200 bg-slate-100 text-sm text-slate-700 leading-relaxed">
-                                <strong>You don't need it.</strong> While our tool outputs files in the standard .xlsx (Excel) format, these files can be opened and edited for free using Google Sheets, LibreOffice, or Apple Numbers. Any software that can open a standard spreadsheet will allow you to view, filter, and work with your territory analysis data perfectly.
+</div>
+<div class="border border-slate-200 rounded-xl bg-white shadow-sm overflow-hidden">
+<button aria-controls="faq-answer-14" aria-expanded="false" class="w-full p-4 text-left flex justify-between items-center hover:bg-slate-50 transition" id="faq-button-14" onclick="toggleFaq(14)">
+<span class="tech-header font-bold text-green-800 pr-4">What if I can’t open my Analysis file?</span>
+<span class="text-green-800 transition-transform duration-200 shrink-0" id="faq-arrow-14">▼</span>
+</button>
+<div aria-labelledby="faq-button-14" class="hidden p-4 border-t border-slate-200 bg-slate-100 text-sm text-slate-700 leading-relaxed" id="faq-answer-14" role="region">
+<strong>The analysis is generated as a standard Microsoft Excel (.xlsx) workbook.</strong> If you don't have Excel installed, you can open it easily by uploading the file to Google Sheets, or by using free office software like LibreOffice or Apple Numbers. If you still cannot open the file, verify that the download completed fully and that the file extension is indeed .xlsx
                             </div>
-                        </div>
-                        <div class="border border-slate-200 rounded-xl bg-white shadow-sm overflow-hidden">
-                            <button onclick="toggleFaq(10)" class="w-full p-4 text-left flex justify-between items-center hover:bg-slate-50 transition">
-                                <span class="tech-header font-bold text-green-800 pr-4">How do I export my KML file from Google?</span>
-                                <span id="faq-arrow-10" class="text-green-800 transition-transform duration-200 shrink-0">▼</span>
-                            </button>
-                            <div id="faq-answer-10" class="hidden p-4 border-t border-slate-200 bg-slate-100 text-sm text-slate-700 leading-relaxed">
-                                <ul class="list-disc pl-5 space-y-2">
-                                    <li><strong>In Google My Maps:</strong> Open your map, click the three-dot menu icon (next to the map name), and select "Export to KML/KMZ." Make sure to select the option to export as KML (not KMZ) for the best compatibility.</li>
-                                    <li><strong>In Google Earth:</strong> Right-click the folder or layer you want to export in the sidebar, select "Save Place As," and choose "KML (*.kml)" from the file type dropdown menu.</li>
-                                </ul>
+</div>
+<div class="border border-slate-200 rounded-xl bg-white shadow-sm overflow-hidden">
+<button aria-controls="faq-answer-15" aria-expanded="false" class="w-full p-4 text-left flex justify-between items-center hover:bg-slate-50 transition scroll-mt-24" id="faq-button-15" onclick="toggleFaq(15)">
+<span class="tech-header font-bold text-green-800 pr-4" id="faq-15">What if my territories are on paper only?</span>
+<span class="text-green-800 transition-transform duration-200 shrink-0" id="faq-arrow-15">▼</span>
+</button>
+<div aria-labelledby="faq-button-15" class="hidden p-4 border-t border-slate-200 bg-slate-100 text-sm text-slate-700 leading-relaxed" id="faq-answer-15" role="region">
+<strong>Our engine requires a digital boundary file (KML)</strong> to perform its spatial calculations. If your territories are currently on paper, you will need to digitize them first. You can easily do this by using Google My Maps to draw your boundaries over a map of your area. Once drawn, export the project as a KML file, and our tool will be ready to process it.
                             </div>
-                        </div>
-                        <div class="border border-slate-200 rounded-xl bg-white shadow-sm overflow-hidden">
-                            <button onclick="toggleFaq(11)" class="w-full p-4 text-left flex justify-between items-center hover:bg-slate-50 transition">
-                                <span class="tech-header font-bold text-green-800 pr-4">Can I upload a KMZ file instead of a KML file?</span>
-                                <span id="faq-arrow-11" class="text-green-800 transition-transform duration-200 shrink-0">▼</span>
-                            </button>
-                            <div id="faq-answer-11" class="hidden p-4 border-t border-slate-200 bg-slate-100 text-sm text-slate-700 leading-relaxed">
-                                <strong>For the best results, please use a .kml file.</strong> A KMZ file is a compressed "zipped" folder containing the KML file and other potential data (like custom icons or photos). Because our engine is designed to parse the raw boundary coordinates directly, the uncompressed .kml format is much more reliable. If you have a .kmz, you can usually convert it by simply renaming the file extension from .kmz to .zip, unzipping it, and pulling out the doc.kml file inside.
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Category: USING THE ANALYZER -->
-                    <button onclick="toggleCategory('analysis')" class="w-full text-left flex justify-between items-center mt-1 p-4 bg-green-800 text-white rounded-xl shadow-sm hover:bg-green-900 transition scroll-mt-24 group">
-                        <h3 id="faq-cat-analysis" class="tech-header text-lg font-bold tracking-wide">Using The Analyzer</h3>
-                        <span id="cat-arrow-analysis" class="transition-transform duration-200">▼</span>
-                    </button>
-                    <div id="cat-content-analysis" class="hidden flex flex-col gap-2 mt-1">
-                        <div class="border border-slate-200 rounded-xl bg-white shadow-sm overflow-hidden">
-                            <button onclick="toggleFaq(12)" class="w-full p-4 text-left flex justify-between items-center hover:bg-slate-50 transition">
-                                <span class="tech-header font-bold text-green-800 pr-4">What do the different tabs mean?</span>
-                                <span id="faq-arrow-12" class="text-green-800 transition-transform duration-200 shrink-0">▼</span>
-                            </button>
-                            <div id="faq-answer-12" class="hidden p-4 border-t border-slate-200 bg-slate-100 text-sm text-slate-700 leading-relaxed">
-                                Your analysis file is structured to give you a complete view of your territory:
-                                <ul class="list-disc pl-5 mt-3 space-y-2">
-                                    <li><strong>Counts Tab:</strong> Provides a quick summary of your territories, including the total number of deliverable addresses.</li>
-                                    <li><strong>Address List Tab:</strong> Contains the master list of all workable addresses found within your boundary, ready for final sorting or filtering.</li>
-                                    <li><strong>Excluded Audit Tab:</strong> Lists any addresses identified within the boundary that the engine flagged for exclusion, such as vacant lots, parks, etc.</li>
-                                    <li><strong>Apartment Tab:</strong> Multi-family units (like apartment buildings or duplexes) in a dedicated area to make it easier to manage their unique distribution needs separately from single-family homes. 5+ units only.</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="border border-slate-200 rounded-xl bg-white shadow-sm overflow-hidden">
-                            <button onclick="toggleFaq(13)" class="w-full p-4 text-left flex justify-between items-center hover:bg-slate-50 transition">
-                                <span class="tech-header font-bold text-green-800 pr-4">Why do my apartment complexes or duplexes look separate?</span>
-                                <span id="faq-arrow-13" class="text-green-800 transition-transform duration-200 shrink-0">▼</span>
-                            </button>
-                            <div id="faq-answer-13" class="hidden p-4 border-t border-slate-200 bg-slate-100 text-sm text-slate-700 leading-relaxed">
-                                <strong>Each unit in a multifamily has its own address line.</strong> This is so each unit is counted as its own address/door. Oftentimes, these are the hard-to-find addresses that would not show up on tax records. If the multifamily has at least 5 units, it'll be placed on the apartment tab.
-                            </div>
-                        </div>
-                        <div class="border border-slate-200 rounded-xl bg-white shadow-sm overflow-hidden">
-                            <button onclick="toggleFaq(14)" class="w-full p-4 text-left flex justify-between items-center hover:bg-slate-50 transition">
-                                <span class="tech-header font-bold text-green-800 pr-4">What if I can’t open my Analysis file?</span>
-                                <span id="faq-arrow-14" class="text-green-800 transition-transform duration-200 shrink-0">▼</span>
-                            </button>
-                            <div id="faq-answer-14" class="hidden p-4 border-t border-slate-200 bg-slate-100 text-sm text-slate-700 leading-relaxed">
-                                <strong>The analysis is generated as a standard Microsoft Excel (.xlsx) workbook.</strong> If you don't have Excel installed, you can open it easily by uploading the file to Google Sheets, or by using free office software like LibreOffice or Apple Numbers. If you still cannot open the file, verify that the download completed fully and that the file extension is indeed .xlsx
-                            </div>
-                        </div>
-                        <div class="border border-slate-200 rounded-xl bg-white shadow-sm overflow-hidden">
-                            <button onclick="toggleFaq(15)" class="w-full p-4 text-left flex justify-between items-center hover:bg-slate-50 transition">
-                                <span class="tech-header font-bold text-green-800 pr-4">What if my territories are on-paper only?</span>
-                                <span id="faq-arrow-15" class="text-green-800 transition-transform duration-200 shrink-0">▼</span>
-                            </button>
-                            <div id="faq-answer-15" class="hidden p-4 border-t border-slate-200 bg-slate-100 text-sm text-slate-700 leading-relaxed">
-                                <strong>Our engine requires a digital boundary file (KML)</strong> to perform its spatial calculations. If your territories are currently on paper, you will need to digitize them first. You can easily do this by using Google My Maps to draw your boundaries over a map of your area. Once drawn, export the project as a KML file, and our tool will be ready to process it.
-                            </div>
-                        </div>
-                        <div class="border border-slate-200 rounded-xl bg-white shadow-sm overflow-hidden">
-                            <button onclick="toggleFaq(16)" class="w-full p-4 text-left flex justify-between items-center hover:bg-slate-50 transition">
-                                <span class="tech-header font-bold text-green-800 pr-4">My analysis keeps getting error messages!</span>
-                                <span id="faq-arrow-16" class="text-green-800 transition-transform duration-200 shrink-0">▼</span>
-                            </button>
-                            <div id="faq-answer-16" class="hidden p-4 border-t border-slate-200 bg-slate-100 text-sm text-slate-700 leading-relaxed">
-                                <strong>Most errors occur due to formatting in the uploaded KML.</strong> Ensure that your KML file contains clear, enclosed polygons representing your territory borders. Avoid complex lines or shapes that are "broken" or have self-intersecting loops. <br><br>
+</div>
+<div class="border border-slate-200 rounded-xl bg-white shadow-sm overflow-hidden">
+<button aria-controls="faq-answer-16" aria-expanded="false" class="w-full p-4 text-left flex justify-between items-center hover:bg-slate-50 transition" id="faq-button-16" onclick="toggleFaq(16)">
+<span class="tech-header font-bold text-green-800 pr-4">My analysis keeps getting error messages!</span>
+<span class="text-green-800 transition-transform duration-200 shrink-0" id="faq-arrow-16">▼</span>
+</button>
+<div aria-labelledby="faq-button-16" class="hidden p-4 border-t border-slate-200 bg-slate-100 text-sm text-slate-700 leading-relaxed" id="faq-answer-16" role="region">
+<strong>Most errors occur due to formatting in the uploaded KML.</strong> Ensure that your KML file contains clear, enclosed polygons representing your territory borders. Avoid complex lines or shapes that are "broken" or have self-intersecting loops. <br/><br/>
                                 If you receive a specific error code, please copy it into the Contact form below, and I will be happy to look into the specific geometry issue for you.  
                             </div>
-                        </div>
-                        <div class="border border-slate-200 rounded-xl bg-white shadow-sm overflow-hidden">
-                            <button onclick="toggleFaq(17)" class="w-full p-4 text-left flex justify-between items-center hover:bg-slate-50 transition">
-                                <span class="tech-header font-bold text-green-800 pr-4">The engine says the app is “asleep”.</span>
-                                <span id="faq-arrow-17" class="text-green-800 transition-transform duration-200 shrink-0">▼</span>
-                            </button>
-                            <div id="faq-answer-17" class="hidden p-4 border-t border-slate-200 bg-slate-100 text-sm text-slate-700 leading-relaxed">
-                                <strong>To save energy and keep hosting costs down, our engine automatically enters a "sleep mode"</strong> when it isn't being actively used. <br><br>
-                                <strong>How to fix:</strong> Simply click the "Wake Me Up" button on the page. You’ll see a message that says "Your app is in the oven." This just means the engine is powering up on our data server. It typically takes less than 60 seconds to fully warm up and be ready for your upload!
+</div>
+<div class="border border-slate-200 rounded-xl bg-white shadow-sm overflow-hidden">
+<button aria-controls="faq-answer-17" aria-expanded="false" class="w-full p-4 text-left flex justify-between items-center hover:bg-slate-50 transition" id="faq-button-17" onclick="toggleFaq(17)">
+<span class="tech-header font-bold text-green-800 pr-4">The engine says the app is “asleep”.</span>
+<span class="text-green-800 transition-transform duration-200 shrink-0" id="faq-arrow-17">▼</span>
+</button>
+<div aria-labelledby="faq-button-17" class="hidden p-4 border-t border-slate-200 bg-slate-100 text-sm text-slate-700 leading-relaxed" id="faq-answer-17" role="region">
+<strong>To save energy and keep hosting costs down, our engine automatically enters a "sleep mode"</strong> when it isn't being actively used. <br/><br/>
+<strong>How to fix:</strong> Simply click the "Wake Me Up" button on the page. You’ll see a message that says "Your app is in the oven." This just means the engine is powering up on our data server. It typically takes less than 60 seconds to fully warm up and be ready for your upload!
                             </div>
-                        </div>
-                    </div>
-
-                    <!-- Category: USING THE NWS IMPORTER -->
-                    <button onclick="toggleCategory('importer')" class="w-full text-left flex justify-between items-center mt-1 p-4 bg-green-800 text-white rounded-xl shadow-sm hover:bg-green-900 transition scroll-mt-24 group">
-                        <h3 id="faq-cat-importer" class="tech-header text-lg font-bold tracking-wide">Using The NWS Importer</h3>
-                        <span id="cat-arrow-importer" class="transition-transform duration-200">▼</span>
-                    </button>
-                    <div id="cat-content-importer" class="hidden flex flex-col gap-2 mt-1">
-                        <div class="border border-slate-200 rounded-xl bg-white shadow-sm overflow-hidden">
-                            <button onclick="toggleFaq(18)" class="w-full p-4 text-left flex justify-between items-center hover:bg-slate-50 transition">
-                                <span class="tech-header font-bold text-green-800 pr-4">How do I get the correct NWS “Territory” Export file?</span>
-                                <span id="faq-arrow-18" class="text-green-800 transition-transform duration-200 shrink-0">▼</span>
-                            </button>
-                            <div id="faq-answer-18" class="hidden p-4 border-t border-slate-200 bg-slate-100 text-sm text-slate-700 leading-relaxed">
+</div>
+</div>
+<!-- Category: USING THE NWS IMPORTER -->
+<button aria-controls="cat-content-importer" aria-expanded="false" class="w-full text-left flex justify-between items-center mt-1 p-4 bg-green-800 text-white rounded-xl shadow-sm hover:bg-green-900 transition scroll-mt-24 group" id="cat-button-importer" onclick="toggleCategory('importer')">
+<h3 class="tech-header text-lg font-bold tracking-wide" id="faq-cat-importer">Using The NWS Importer</h3>
+<span class="transition-transform duration-200" id="cat-arrow-importer">▼</span>
+</button>
+<div aria-labelledby="cat-button-importer" class="hidden flex flex-col gap-2 mt-1" id="cat-content-importer" role="region">
+<div class="border border-slate-200 rounded-xl bg-white shadow-sm overflow-hidden">
+<button aria-controls="faq-answer-18" aria-expanded="false" class="w-full p-4 text-left flex justify-between items-center hover:bg-slate-50 transition" id="faq-button-18" onclick="toggleFaq(18)">
+<span class="tech-header font-bold text-green-800 pr-4">How do I get the correct NWS “Territory” Export file?</span>
+<span class="text-green-800 transition-transform duration-200 shrink-0" id="faq-arrow-18">▼</span>
+</button>
+<div aria-labelledby="faq-button-18" class="hidden p-4 border-t border-slate-200 bg-slate-100 text-sm text-slate-700 leading-relaxed" id="faq-answer-18" role="region">
                                 To ensure our tool can correctly link your new address data to your existing map, you need to export your current territory list from the NW Scheduler (NWS) software.
                                 <ol class="list-decimal pl-5 mt-3 space-y-2">
-                                    <li><strong>Log into</strong> your New World Scheduler app.</li>
-                                    <li><strong>Navigate</strong> to the Territories section.</li>
-                                    <li><strong>Look for an Export or Download button</strong> and select the CSV format. This file serves as the "key" that allows our engine to match your analysis results with your existing records.</li>
-                                </ol>
-                                <p class="mt-3">See <a href="https://nwscheduler.com/territory-management/" target="_blank" class="text-green-800 font-semibold hover:underline">nwscheduler.com/territory-management/</a></p>
+<li><strong>Log into</strong> your New World Scheduler app.</li>
+<li><strong>Navigate</strong> to the Territories section.</li>
+<li><strong>Look for an Export or Download button</strong> and select the CSV format. This file serves as the "key" that allows our engine to match your analysis results with your existing records.</li>
+</ol>
+<p class="mt-3">See <a class="text-green-800 font-semibold hover:underline" href="https://nwscheduler.com/territory-management/" target="_blank">nwscheduler.com/territory-management/</a></p>
+</div>
+</div>
+<div class="border border-slate-200 rounded-xl bg-white shadow-sm overflow-hidden">
+<button aria-controls="faq-answer-19" aria-expanded="false" class="w-full p-4 text-left flex justify-between items-center hover:bg-slate-50 transition" id="faq-button-19" onclick="toggleFaq(19)">
+<span class="tech-header font-bold text-green-800 pr-4">What if I can’t open my importer file?</span>
+<span class="text-green-800 transition-transform duration-200 shrink-0" id="faq-arrow-19">▼</span>
+</button>
+<div aria-labelledby="faq-button-19" class="hidden p-4 border-t border-slate-200 bg-slate-100 text-sm text-slate-700 leading-relaxed" id="faq-answer-19" role="region">
+<strong>You likely don’t need to open it manually!</strong> The CSV file generated by our tool is formatted specifically for the NWS system to "ingest" (upload) automatically. If you do need to view it, you can open it using Google Sheets, LibreOffice, or Excel. If the data looks like a jumble of text, it is simply the CSV format (Comma-Separated Values).
+                                <br/><br/>
+                                For help uploading onto NWS directly, see <a class="text-green-800 font-semibold hover:underline" href="https://nwscheduler.com/territory-management/" target="_blank">nwscheduler.com/territory-management/</a>
+</div>
+</div>
+<div class="border border-slate-200 rounded-xl bg-white shadow-sm overflow-hidden">
+<button aria-controls="faq-answer-20" aria-expanded="false" class="w-full p-4 text-left flex justify-between items-center hover:bg-slate-50 transition" id="faq-button-20" onclick="toggleFaq(20)">
+<span class="tech-header font-bold text-green-800 pr-4">What does this file do?</span>
+<span class="text-green-800 transition-transform duration-200 shrink-0" id="faq-arrow-20">▼</span>
+</button>
+<div aria-labelledby="faq-button-20" class="hidden p-4 border-t border-slate-200 bg-slate-100 text-sm text-slate-700 leading-relaxed" id="faq-answer-20" role="region">
+<strong>Think of this file as a "translation".</strong> It takes the geographic insights from your Territory Analysis and rearranges them into the specific structure that the NWS software requires. The file tells the software exactly where to place each address, house, or apartment within your existing territory map.
                             </div>
-                        </div>
-                        <div class="border border-slate-200 rounded-xl bg-white shadow-sm overflow-hidden">
-                            <button onclick="toggleFaq(19)" class="w-full p-4 text-left flex justify-between items-center hover:bg-slate-50 transition">
-                                <span class="tech-header font-bold text-green-800 pr-4">What if I can’t open my importer file?</span>
-                                <span id="faq-arrow-19" class="text-green-800 transition-transform duration-200 shrink-0">▼</span>
-                            </button>
-                            <div id="faq-answer-19" class="hidden p-4 border-t border-slate-200 bg-slate-100 text-sm text-slate-700 leading-relaxed">
-                                <strong>You likely don’t need to open it manually!</strong> The CSV file generated by our tool is formatted specifically for the NWS system to "ingest" (upload) automatically. If you do need to view it, you can open it using Google Sheets, LibreOffice, or Excel. If the data looks like a jumble of text, it is simply the CSV format (Comma-Separated Values).
-                                <br><br>
-                                For help uploading onto NWS directly, see <a href="https://nwscheduler.com/territory-management/" target="_blank" class="text-green-800 font-semibold hover:underline">nwscheduler.com/territory-management/</a>
-                            </div>
-                        </div>
-                        <div class="border border-slate-200 rounded-xl bg-white shadow-sm overflow-hidden">
-                            <button onclick="toggleFaq(20)" class="w-full p-4 text-left flex justify-between items-center hover:bg-slate-50 transition">
-                                <span class="tech-header font-bold text-green-800 pr-4">What does this file do?</span>
-                                <span id="faq-arrow-20" class="text-green-800 transition-transform duration-200 shrink-0">▼</span>
-                            </button>
-                            <div id="faq-answer-20" class="hidden p-4 border-t border-slate-200 bg-slate-100 text-sm text-slate-700 leading-relaxed">
-                                <strong>Think of this file as a "translation".</strong> It takes the geographic insights from your Territory Analysis and rearranges them into the specific structure that the NWS software requires. The file tells the software exactly where to place each address, house, or apartment within your existing territory map.
-                            </div>
-                        </div>
-                        <div class="border border-slate-200 rounded-xl bg-white shadow-sm overflow-hidden">
-                            <button onclick="toggleFaq(21)" class="w-full p-4 text-left flex justify-between items-center hover:bg-slate-50 transition">
-                                <span class="tech-header font-bold text-green-800 pr-4">How do I upload my NWS Import CSV file to NWS?</span>
-                                <span id="faq-arrow-21" class="text-green-800 transition-transform duration-200 shrink-0">▼</span>
-                            </button>
-                            <div id="faq-answer-21" class="hidden p-4 border-t border-slate-200 bg-slate-100 text-sm text-slate-700 leading-relaxed">
+</div>
+<div class="border border-slate-200 rounded-xl bg-white shadow-sm overflow-hidden">
+<button aria-controls="faq-answer-21" aria-expanded="false" class="w-full p-4 text-left flex justify-between items-center hover:bg-slate-50 transition" id="faq-button-21" onclick="toggleFaq(21)">
+<span class="tech-header font-bold text-green-800 pr-4">How do I upload my NWS Import CSV file to NWS?</span>
+<span class="text-green-800 transition-transform duration-200 shrink-0" id="faq-arrow-21">▼</span>
+</button>
+<div aria-labelledby="faq-button-21" class="hidden p-4 border-t border-slate-200 bg-slate-100 text-sm text-slate-700 leading-relaxed" id="faq-answer-21" role="region">
                                 Once you have downloaded the ready-to-import CSV from our engine:
                                 <ol class="list-decimal pl-5 mt-3 space-y-2">
-                                    <li><strong>Open</strong> your NW Scheduler application.</li>
-                                    <li><strong>Navigate</strong> to the Addresses or Territories import utility.</li>
-                                    <li><strong>Select the file</strong> you downloaded from us.</li>
-                                    <li>After confirming the import, your new addresses will appear. </li>
-                                </ol>
-                                <p class="mt-3">See <a href="https://nwscheduler.com/territory-management/" target="_blank" class="text-green-800 font-semibold hover:underline">nwscheduler.com/territory-management/</a></p>
-                            </div>
-                        </div>
-
-                        <!-- Common Problem Callout -->
-                        <div class="mt-1 p-4 border border-amber-200 bg-amber-50 rounded-xl shadow-sm flex items-start gap-4">
-                            <svg class="w-6 h-6 text-amber-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
-                            <div>
-                                <h4 class="font-bold text-amber-900 text-sm uppercase tracking-wide mb-1">Common Problem</h4>
-                                <p class="text-sm text-amber-800 font-medium leading-relaxed">"An error occurred during processing: Could not find the 'Territory Name' column."</p>
-                                <p class="text-sm text-amber-900 mt-1 opacity-90">Please ensure you uploaded the <strong>'Address List'</strong> CSV tab, not the Dashboard.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Category: TUTORIAL VIDEOS -->
-                    <div class="mt-6 p-5 bg-white border border-slate-200 rounded-xl shadow-sm">
-                        <div class="flex justify-between items-end mb-4">
-                            <div>
-                                <h3 class="tech-header text-xl font-bold text-slate-900 mb-1">Tutorial Videos</h3>
-                                <p class="text-sm text-slate-600">Follow the link to these helpful tutorial videos:</p>
-                            </div>
-                            <a href="#" class="text-xs font-bold uppercase tracking-wider text-green-800 hover:text-green-900 hover:underline">See all videos →</a>
-                        </div>
-                        
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                            <!-- Video 1 -->
-                            <a href="#" class="p-4 border border-slate-200 rounded-xl bg-slate-50 shadow-sm hover:border-green-600/50 hover:bg-white hover:shadow-md transition flex items-center gap-4 group">
-                                <span class="p-3 bg-green-100 text-green-700 rounded-lg shrink-0 group-hover:bg-green-700 group-hover:text-white transition">
-                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M15.91 11.672a.375.375 0 010 .656l-5.603 3.113a.375.375 0 01-.557-.328V8.887c0-.286.307-.466.557-.327l5.603 3.112z"></path></svg>
-                                </span>
-                                <span class="tech-header font-bold text-slate-900 text-sm group-hover:text-green-700 transition">About Territory Toolbox’s Website</span>
-                            </a>
-                            <!-- Video 2 -->
-                            <a href="#" class="p-4 border border-slate-200 rounded-xl bg-slate-50 shadow-sm hover:border-green-600/50 hover:bg-white hover:shadow-md transition flex items-center gap-4 group">
-                                <span class="p-3 bg-green-100 text-green-700 rounded-lg shrink-0 group-hover:bg-green-700 group-hover:text-white transition">
-                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M15.91 11.672a.375.375 0 010 .656l-5.603 3.113a.375.375 0 01-.557-.328V8.887c0-.286.307-.466.557-.327l5.603 3.112z"></path></svg>
-                                </span>
-                                <span class="tech-header font-bold text-slate-900 text-sm group-hover:text-green-700 transition">How To Generate Your Territory Analysis</span>
-                            </a>
-                            <!-- Video 3 -->
-                            <a href="#" class="p-4 border border-slate-200 rounded-xl bg-slate-50 shadow-sm hover:border-green-600/50 hover:bg-white hover:shadow-md transition flex items-center gap-4 group">
-                                <span class="p-3 bg-green-100 text-green-700 rounded-lg shrink-0 group-hover:bg-green-700 group-hover:text-white transition">
-                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M15.91 11.672a.375.375 0 010 .656l-5.603 3.113a.375.375 0 01-.557-.328V8.887c0-.286.307-.466.557-.327l5.603 3.112z"></path></svg>
-                                </span>
-                                <span class="tech-header font-bold text-slate-900 text-sm group-hover:text-green-700 transition">How To Use Your Territory Analysis</span>
-                            </a>
-                            <!-- Video 4 -->
-                            <a href="#" class="p-4 border border-slate-200 rounded-xl bg-slate-50 shadow-sm hover:border-green-600/50 hover:bg-white hover:shadow-md transition flex items-center gap-4 group">
-                                <span class="p-3 bg-green-100 text-green-700 rounded-lg shrink-0 group-hover:bg-green-700 group-hover:text-white transition">
-                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M15.91 11.672a.375.375 0 010 .656l-5.603 3.113a.375.375 0 01-.557-.328V8.887c0-.286.307-.466.557-.327l5.603 3.112z"></path></svg>
-                                </span>
-                                <span class="tech-header font-bold text-slate-900 text-sm group-hover:text-green-700 transition">How To Generate Your NWS Address Import</span>
-                            </a>
-                        </div>
-                    </div>
-
-                </div>
-            </section>
-
-            <!-- ================= INTERACTIVE WORKSPACE: CONTACT ================= -->
-            <section id="sect-contact" class="hidden py-4">
-                <div class="max-w-2xl mx-auto flex flex-col gap-6">
-                    <div class="border-b border-slate-200 pb-4">
-                        <h2 class="tech-header text-3xl font-bold text-slate-900 mt-1">Inquiries & Custom Requests</h2>
-                        <p class="text-sm text-slate-600 mt-2 leading-relaxed">
-                            Whether a question slipped past the FAQ, a tool isn't behaving quite right on your browser, or you have a fresh idea to make mapping easier for our congregations—I'd love to hear it. Drop your thoughts in the form below.
+<li><strong>Open</strong> your NW Scheduler application.</li>
+<li><strong>Navigate</strong> to the Addresses or Territories import utility.</li>
+<li><strong>Select the file</strong> you downloaded from us.</li>
+<li>After confirming the import, your new addresses will appear. </li>
+</ol>
+<p class="mt-3">See <a class="text-green-800 font-semibold hover:underline" href="https://nwscheduler.com/territory-management/" target="_blank">nwscheduler.com/territory-management/</a></p>
+</div>
+</div>
+<!-- Common Problem Callout -->
+<div class="mt-1 p-4 border border-amber-200 bg-amber-50 rounded-xl shadow-sm flex items-start gap-4">
+<svg aria-hidden="true" class="w-6 h-6 text-amber-600 shrink-0 mt-0.5" fill="none" focusable="false" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+<div>
+<h4 class="font-bold text-amber-900 text-sm uppercase tracking-wide mb-1">Common Problem</h4>
+<p class="text-sm text-amber-800 font-medium leading-relaxed">"An error occurred during processing: Could not find the 'Territory Name' column."</p>
+<p class="text-sm text-amber-900 mt-1 opacity-90">Please ensure you uploaded the <strong>'Address List'</strong> CSV tab, not the Dashboard.</p>
+</div>
+</div>
+</div>
+<!-- Category: TUTORIAL VIDEOS -->
+<div class="mt-6 p-5 bg-white border border-slate-200 rounded-xl shadow-sm">
+<div class="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-3 mb-4">
+<div>
+<div class="flex flex-wrap items-center gap-2 mb-1">
+<h3 class="tech-header text-xl font-bold text-slate-900">Tutorial Videos</h3>
+<span class="px-2.5 py-1 rounded-full bg-green-100 text-green-800 text-[10px] font-bold uppercase tracking-wider">Coming Soon</span>
+</div>
+<p class="text-sm text-slate-600">These step-by-step tutorials are currently being prepared. The planned topics are shown below.</p>
+</div>
+<span class="text-xs font-bold uppercase tracking-wider text-slate-500">Coming Soon</span>
+</div>
+<div aria-label="Planned tutorial videos" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+<div class="tutorial-preview p-4 border border-slate-200 rounded-xl bg-slate-50 shadow-sm flex items-center gap-4 opacity-80">
+<span class="tutorial-icon p-3 bg-slate-200 text-slate-500 rounded-lg shrink-0">
+<svg aria-hidden="true" class="w-6 h-6" fill="none" focusable="false" stroke="currentColor" stroke-width="1.5" viewbox="0 0 24 24"><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round"></path><path d="M15.91 11.672a.375.375 0 010 .656l-5.603 3.113a.375.375 0 01-.557-.328V8.887c0-.286.307-.466.557-.327l5.603 3.112z" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+</span>
+<span class="tech-header font-bold text-slate-700 text-sm">About Territory Toolbox’s Website</span>
+</div>
+<div class="tutorial-preview p-4 border border-slate-200 rounded-xl bg-slate-50 shadow-sm flex items-center gap-4 opacity-80">
+<span class="tutorial-icon p-3 bg-slate-200 text-slate-500 rounded-lg shrink-0">
+<svg aria-hidden="true" class="w-6 h-6" fill="none" focusable="false" stroke="currentColor" stroke-width="1.5" viewbox="0 0 24 24"><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round"></path><path d="M15.91 11.672a.375.375 0 010 .656l-5.603 3.113a.375.375 0 01-.557-.328V8.887c0-.286.307-.466.557-.327l5.603 3.112z" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+</span>
+<span class="tech-header font-bold text-slate-700 text-sm">How to Generate Your Territory Analysis</span>
+</div>
+<div class="tutorial-preview p-4 border border-slate-200 rounded-xl bg-slate-50 shadow-sm flex items-center gap-4 opacity-80">
+<span class="tutorial-icon p-3 bg-slate-200 text-slate-500 rounded-lg shrink-0">
+<svg aria-hidden="true" class="w-6 h-6" fill="none" focusable="false" stroke="currentColor" stroke-width="1.5" viewbox="0 0 24 24"><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round"></path><path d="M15.91 11.672a.375.375 0 010 .656l-5.603 3.113a.375.375 0 01-.557-.328V8.887c0-.286.307-.466.557-.327l5.603 3.112z" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+</span>
+<span class="tech-header font-bold text-slate-700 text-sm">How to Use Your Territory Analysis</span>
+</div>
+<div class="tutorial-preview p-4 border border-slate-200 rounded-xl bg-slate-50 shadow-sm flex items-center gap-4 opacity-80">
+<span class="tutorial-icon p-3 bg-slate-200 text-slate-500 rounded-lg shrink-0">
+<svg aria-hidden="true" class="w-6 h-6" fill="none" focusable="false" stroke="currentColor" stroke-width="1.5" viewbox="0 0 24 24"><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round"></path><path d="M15.91 11.672a.375.375 0 010 .656l-5.603 3.113a.375.375 0 01-.557-.328V8.887c0-.286.307-.466.557-.327l5.603 3.112z" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+</span>
+<span class="tech-header font-bold text-slate-700 text-sm">How to Generate Your NWS Address Import</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ================= INTERACTIVE WORKSPACE: CONTACT ================= -->
+<section class="hidden py-4" id="sect-contact">
+<div class="max-w-2xl mx-auto flex flex-col gap-6">
+<div class="border-b border-slate-200 pb-4">
+<h2 class="tech-header text-3xl font-bold text-slate-900 mt-1">Inquiries &amp; Custom Requests</h2>
+<p class="text-sm text-slate-600 mt-2 leading-relaxed">
+                            Whether a question was not covered in the FAQs, a tool is not behaving correctly in your browser, or you have an idea that could improve territory organization, use the form below to prepare an email.
                         </p>
-                    </div>
-
-                    <form id="contact-form" onsubmit="handleContactSubmit(event)" class="flex flex-col gap-5 bg-white shadow-sm p-6 border border-slate-200 rounded-2xl">
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div class="flex flex-col gap-1.5">
-                                <label class="text-xs font-bold uppercase text-slate-600 tracking-wide">Your Name</label>
-                                <input type="text" id="contact-name" required placeholder="e.g. Isaac Robles" class="p-3 border border-slate-300 rounded-xl bg-slate-50 text-slate-900 text-sm placeholder-slate-400 focus:outline-none focus:border-green-600 focus:ring-1 focus:ring-green-600 transition duration-150">
+</div>
+<form class="flex flex-col gap-5 bg-white shadow-sm p-6 border border-slate-200 rounded-2xl" id="contact-form" onsubmit="handleContactSubmit(event)">
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<div class="flex flex-col gap-1.5">
+<label class="text-xs font-bold uppercase text-slate-600 tracking-wide" for="contact-name">Your Name</label>
+<input autocomplete="name" class="p-3 border border-slate-300 rounded-xl bg-slate-50 text-slate-900 text-sm placeholder-slate-400 focus:outline-none focus:border-green-600 focus:ring-1 focus:ring-green-600 transition duration-150" id="contact-name" name="name" placeholder="e.g. Isaac Robles" required="" type="text"/>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="text-xs font-bold uppercase text-slate-600 tracking-wide" for="contact-email">Email Address</label>
+<input autocomplete="email" class="p-3 border border-slate-300 rounded-xl bg-slate-50 text-slate-900 text-sm placeholder-slate-400 focus:outline-none focus:border-green-600 focus:ring-1 focus:ring-green-600 transition duration-150" id="contact-email" name="email" placeholder="name@domain.com" required="" type="email"/>
+</div>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="text-xs font-bold uppercase text-slate-600 tracking-wide" for="contact-subject">Subject</label>
+<input autocomplete="off" class="p-3 border border-slate-300 rounded-xl bg-slate-50 text-slate-900 text-sm placeholder-slate-400 focus:outline-none focus:border-green-600 focus:ring-1 focus:ring-green-600 transition duration-150" id="contact-subject" name="subject" placeholder="e.g. Milwaukee County Duplex Audit" required="" type="text"/>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="text-xs font-bold uppercase text-slate-600 tracking-wide" for="contact-message">Message</label>
+<textarea class="p-3 border border-slate-300 rounded-xl bg-slate-50 text-slate-900 text-sm placeholder-slate-400 focus:outline-none focus:border-green-600 focus:ring-1 focus:ring-green-600 transition duration-150" id="contact-message" name="message" placeholder="Enter suggestions, errors, or custom requests here..." required="" rows="5"></textarea>
+</div>
+<div class="flex flex-col sm:flex-row justify-between items-center gap-4 border-t border-slate-100 pt-4 mt-2">
+<div class="text-[10px] text-slate-500 max-w-xs leading-relaxed data-font">
+                                This form opens your email application with a draft addressed to <strong class="text-green-700">isaacrobles33321@gmail.com</strong>. Nothing is submitted through the website.
                             </div>
-                            <div class="flex flex-col gap-1.5">
-                                <label class="text-xs font-bold uppercase text-slate-600 tracking-wide">Email Address</label>
-                                <input type="email" id="contact-email" required placeholder="name@domain.com" class="p-3 border border-slate-300 rounded-xl bg-slate-50 text-slate-900 text-sm placeholder-slate-400 focus:outline-none focus:border-green-600 focus:ring-1 focus:ring-green-600 transition duration-150">
-                            </div>
-                        </div>
-
-                        <div class="flex flex-col gap-1.5">
-                            <label class="text-xs font-bold uppercase text-slate-600 tracking-wide">Subject Header</label>
-                            <input type="text" id="contact-subject" required placeholder="e.g. Milwaukee County Duplex Audit" class="p-3 border border-slate-300 rounded-xl bg-slate-50 text-slate-900 text-sm placeholder-slate-400 focus:outline-none focus:border-green-600 focus:ring-1 focus:ring-green-600 transition duration-150">
-                        </div>
-
-                        <div class="flex flex-col gap-1.5">
-                            <label class="text-xs font-bold uppercase text-slate-600 tracking-wide">Inquiry Message</label>
-                            <textarea id="contact-message" required rows="5" placeholder="Enter suggestions, errors, or custom requests here..." class="p-3 border border-slate-300 rounded-xl bg-slate-50 text-slate-900 text-sm placeholder-slate-400 focus:outline-none focus:border-green-600 focus:ring-1 focus:ring-green-600 transition duration-150"></textarea>
-                        </div>
-
-                        <div class="flex flex-col sm:flex-row justify-between items-center gap-4 border-t border-slate-100 pt-4 mt-2">
-                            <div class="text-[10px] text-slate-500 max-w-xs leading-relaxed data-font">
-                                Forms dynamically generate draft requests to send directly to <strong class="text-green-700">isaacrobles33321@gmail.com</strong>.
-                            </div>
-                            <button type="submit" class="tactile-btn px-6 py-3 bg-green-700 hover:bg-green-600 text-white text-xs font-bold uppercase tracking-wider rounded-xl shadow-sm transition">
-                                Dispatch Inquiry →
+<button class="tactile-btn px-6 py-3 bg-green-700 hover:bg-green-600 text-white text-xs font-bold uppercase tracking-wider rounded-xl shadow-sm transition" type="submit">
+                                Open Email Draft →
                             </button>
-                        </div>
-                    </form>
-                </div>
-            </section>
-
-            <!-- ================= STUB SECTION: SAMPLE ANALYSIS ================= -->
-            <section id="sect-sample" class="hidden py-4">
-                <div class="max-w-4xl mx-auto flex flex-col gap-6">
-                    <div class="border-b border-slate-200 pb-4">
-                        <span class="text-xs font-bold uppercase tracking-widest text-green-700">See An Example</span>
-                        <h2 class="tech-header text-3xl font-bold text-slate-900 mt-1">Sample Territory Analysis</h2>
-                        <p class="text-sm text-slate-600 mt-2 leading-relaxed">
+</div>
+</form>
+</div>
+</section>
+<!-- ================= STUB SECTION: SAMPLE ANALYSIS ================= -->
+<section class="hidden py-4" id="sect-sample">
+<div class="max-w-4xl mx-auto flex flex-col gap-6">
+<div class="border-b border-slate-200 pb-4">
+<span class="text-xs font-bold uppercase tracking-widest text-green-700">See An Example</span>
+<h2 class="tech-header text-3xl font-bold text-slate-900 mt-1">Sample Territory Analysis</h2>
+<p class="text-sm text-slate-600 mt-2 leading-relaxed">
                             Curious about what your Territory Analysis will look like? Download a sample Excel file below to see exactly how your data will be organized. This sample demonstrates how the engine structures base addresses, isolates multi-family apartment units into dedicated tabs, and compiles clean, standardized sheets that are instantly ready for your ministry management.
                         </p>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
-                        <!-- Direct Download Card -->
-                        <div class="p-6 bg-white border border-slate-200 rounded-xl shadow-sm flex flex-col justify-between gap-4">
-                            <div>
-                                <div class="flex items-center gap-3 mb-3">
-                                    <svg class="w-8 h-8 text-green-700" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m.75 12l3 3m0 0l3-3m-3 3v-6m-1.5-9H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"></path>
-                                    </svg>
-                                    <h3 class="tech-header font-bold text-slate-900 text-lg">Download Excel File</h3>
-                                </div>
-                                <p class="text-xs text-slate-600 leading-relaxed">
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
+<!-- Direct Download Card -->
+<div class="p-6 bg-white border border-slate-200 rounded-xl shadow-sm flex flex-col justify-between gap-4">
+<div>
+<div class="flex items-center gap-3 mb-3">
+<svg aria-hidden="true" class="w-8 h-8 text-green-700" fill="none" focusable="false" stroke="currentColor" stroke-width="1.5" viewbox="0 0 24 24">
+<path d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m.75 12l3 3m0 0l3-3m-3 3v-6m-1.5-9H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<h3 class="tech-header font-bold text-slate-900 text-lg">Download Excel File</h3>
+</div>
+<p class="text-xs text-slate-600 leading-relaxed">
                                     Download a standard .xlsx file containing mock addresses to view the exact formatting, column structure, and tab organization generated by the tool.
                                 </p>
-                            </div>
-                            <a href="SampleCongregation_July2026_TerritoryAnalysis.xlsx" download class="tactile-btn w-full py-3 bg-green-700 hover:bg-green-600 text-white text-[11px] font-bold uppercase tracking-wider rounded-lg shadow-sm transition duration-150 text-center block">
+</div>
+<a class="tactile-btn w-full py-3 bg-green-700 hover:bg-green-600 text-white text-[11px] font-bold uppercase tracking-wider rounded-lg shadow-sm transition duration-150 text-center block" download="Sample-TerritoryAnalysis-2026-07-30.xlsx" href="Sample-TerritoryAnalysis-2026-07-30.xlsx">
                                 Download .XLSX Sample
                             </a>
-                        </div>
-
-                        <!-- View Online Card -->
-                        <div class="p-6 bg-white border border-slate-200 rounded-xl shadow-sm flex flex-col justify-between gap-4">
-                            <div>
-                                <div class="flex items-center gap-3 mb-3">
-                                    <svg class="w-8 h-8 text-green-700" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"></path>
-                                    </svg>
-                                    <h3 class="tech-header font-bold text-slate-900 text-lg">View in Google Sheets</h3>
-                                </div>
-                                <p class="text-xs text-slate-600 leading-relaxed">
+</div>
+<!-- View Online Card -->
+<div class="p-6 bg-white border border-slate-200 rounded-xl shadow-sm flex flex-col justify-between gap-4">
+<div>
+<div class="flex items-center gap-3 mb-3">
+<svg aria-hidden="true" class="w-8 h-8 text-green-700" fill="none" focusable="false" stroke="currentColor" stroke-width="1.5" viewbox="0 0 24 24">
+<path d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<h3 class="tech-header font-bold text-slate-900 text-lg">View in Google Sheets</h3>
+</div>
+<p class="text-xs text-slate-600 leading-relaxed">
                                     Don't have Microsoft Excel installed? You can view the exact same sample dataset directly in your web browser using a public, read-only Google Sheet.
                                 </p>
-                            </div>
-                            <a href="https://docs.google.com/spreadsheets/d/1ha1YCOOIr0ry-v6lCQtUhaS1Y1FYYHudG0LFM0XbrHo/edit?usp=drive_link" target="_blank" class="tactile-btn w-full py-3 border border-green-600/30 hover:bg-green-50 text-green-700 text-[11px] font-bold uppercase tracking-wider rounded-lg transition duration-150 text-center block">
+</div>
+<a class="tactile-btn w-full py-3 border border-green-600/30 hover:bg-green-50 text-green-700 text-[11px] font-bold uppercase tracking-wider rounded-lg transition duration-150 text-center block" href="https://docs.google.com/spreadsheets/d/19wkEcPF-aLsxxC86ihj5VPx0QDgfk___pP-55Rfj0mE/edit?usp=sharing" rel="noopener noreferrer" target="_blank">
                                 Open Google Sheet
                             </a>
-                        </div>
-                    </div>
-                    
-                    <div class="mt-8 flex flex-col items-center gap-3">
-                         <a href="#" onclick="navigateTo('faq'); return false;" class="text-sm text-green-700 hover:underline font-medium">Have more questions? See the FAQ's.</a>
-                         <a href="#" onclick="navigateTo('usecases'); return false;" class="text-sm text-green-700 hover:underline font-medium">See practical uses for your analysis.</a>
-                    </div>
-                </div>
-            </section>
-
-            <!-- ================= INTERACTIVE WORKSPACE: USE CASES ================= -->
-            <section id="sect-usecases" class="hidden py-4">
-                <div class="max-w-4xl mx-auto flex flex-col gap-6">
-                    <div class="border-b border-slate-200 pb-4">
-                        <span class="text-xs font-bold uppercase tracking-widest text-green-700">What practical ways can you use your territory analysis?</span>
-                        <h2 class="tech-header text-3xl font-bold text-slate-900 mt-1">Use Cases</h2>
-                        <p class="text-sm text-slate-600 mt-2 leading-relaxed">
+</div>
+</div>
+<div class="mt-8 flex flex-col items-center gap-3">
+<a class="text-sm text-green-700 hover:underline font-medium" href="#faq" onclick="navigateTo('faq'); return false;">Have more questions? See the FAQ's.</a>
+<a class="text-sm text-green-700 hover:underline font-medium" href="#usecases" onclick="navigateTo('usecases'); return false;">See practical uses for your analysis.</a>
+</div>
+</div>
+</section>
+<!-- ================= INTERACTIVE WORKSPACE: USE CASES ================= -->
+<section class="hidden py-4" id="sect-usecases">
+<div class="max-w-4xl mx-auto flex flex-col gap-6">
+<div class="border-b border-slate-200 pb-4">
+<span class="text-xs font-bold uppercase tracking-widest text-green-700">Practical Applications for Your Ministry</span>
+<h2 class="tech-header text-3xl font-bold text-slate-900 mt-1">Use Cases</h2>
+<p class="text-sm text-slate-600 mt-2 leading-relaxed">
                             There are many ways to utilize your territory analysis far beyond a basic spreadsheet report. Below are a few of the most effective strategies for turning raw address data into organized, ready-to-use resources that directly support the friends in their ministry.
                         </p>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
-                        <!-- Use Case 1 -->
-                        <div class="p-6 bg-white border border-slate-200 rounded-xl shadow-sm flex flex-col gap-3">
-                            <div class="flex items-center gap-3">
-                                <span class="p-2 bg-green-50 text-green-700 rounded-lg">
-                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75"></path></svg>
-                                </span>
-                                <h3 class="tech-header font-bold text-slate-900 leading-tight">Divide Large Territories</h3>
-                            </div>
-                            <p class="text-xs text-slate-600 leading-relaxed">
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
+<!-- Use Case 1 -->
+<div class="p-6 bg-white border border-slate-200 rounded-xl shadow-sm flex flex-col gap-3">
+<div class="flex items-center gap-3">
+<span class="use-case-icon bg-green-50 text-green-700" aria-hidden="true">
+<svg aria-hidden="true" class="w-6 h-6" fill="none" focusable="false" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+<path d="M10.5 6h9.75M3.75 6H7.5M10.5 18h9.75M3.75 18H7.5M16.5 12h3.75M3.75 12h9.75" stroke-linecap="round" stroke-linejoin="round"></path>
+<circle cx="9" cy="6" r="1.5"></circle>
+<circle cx="9" cy="18" r="1.5"></circle>
+<circle cx="15" cy="12" r="1.5"></circle>
+</svg>
+</span>
+<h3 class="tech-header font-bold text-slate-900 leading-tight">Divide Large Territories</h3>
+</div>
+<p class="text-xs text-slate-600 leading-relaxed">
                                 Avoid the guesswork of manually counting blocks. When the Analyzer engine reads your territory polygons, the engine instantly calculates exact address counts per territory. This allows you to make informed decisions on how to divide up territories since you understand their density. Every hall is different.
                             </p>
-                        </div>
-
-                        <!-- Use Case 2 -->
-                        <div class="p-6 bg-white border border-slate-200 rounded-xl shadow-sm flex flex-col gap-3">
-                            <div class="flex items-center gap-3">
-                                <span class="p-2 bg-green-50 text-green-700 rounded-lg">
-                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" /></svg>
-                                </span>
-                                <h3 class="tech-header font-bold text-slate-900 leading-tight">See Every Address</h3>
-                            </div>
-                            <p class="text-xs text-slate-600 leading-relaxed">
+</div>
+<!-- Use Case 2 -->
+<div class="p-6 bg-white border border-slate-200 rounded-xl shadow-sm flex flex-col gap-3">
+<div class="flex items-center gap-3">
+<span class="use-case-icon bg-green-50 text-green-700" aria-hidden="true">
+<svg aria-hidden="true" class="w-6 h-6" fill="none" focusable="false" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+<path d="M2.5 12s3.5-7.5 9.5-7.5S21.5 12 21.5 12 18 19.5 12 19.5 2.5 12 2.5 12z" stroke-linecap="round" stroke-linejoin="round"></path>
+<circle cx="12" cy="12" r="3"></circle>
+</svg>
+</span>
+<h3 class="tech-header font-bold text-slate-900 leading-tight">See Every Address</h3>
+</div>
+<p class="text-xs text-slate-600 leading-relaxed">
                                 Save hours of manual mapping. Rather than physically scouting streets for hidden address ranges, you get an immediate overview of every home within your territory boundaries. The engine instantly maps out every valid delivery location, providing a clean dataset that is structured and ready to import directly into your management software.
                             </p>
-                        </div>
-
-                        <!-- Use Case 3 -->
-                        <div class="p-6 bg-white border border-slate-200 rounded-xl shadow-sm flex flex-col gap-3">
-                            <div class="flex items-center gap-3">
-                                <span class="p-2 bg-green-50 text-green-700 rounded-lg">
-                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504-1.125-1.125-1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25zM6.75 12h.008v.008H6.75V12zm0 3h.008v.008H6.75V15zm0 3h.008v.008H6.75V18z"></path></svg>
-                                </span>
-                                <h3 class="tech-header font-bold text-slate-900 leading-tight">Accurate and Thorough Maps</h3>
-                            </div>
-                            <p class="text-xs text-slate-600 leading-relaxed">
+</div>
+<!-- Use Case 3 -->
+<div class="p-6 bg-white border border-slate-200 rounded-xl shadow-sm flex flex-col gap-3">
+<div class="flex items-center gap-3">
+<span class="use-case-icon bg-green-50 text-green-700" aria-hidden="true">
+<svg aria-hidden="true" class="w-6 h-6" fill="none" focusable="false" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+<path d="M3.75 5.25 9 3.75l6 2 5.25-1.5v14.5L15 20.25l-6-2-5.25 1.5V5.25Z" stroke-linecap="round" stroke-linejoin="round"></path>
+<path d="M9 3.75v14.5M15 5.75v14.5" stroke-linecap="round" stroke-linejoin="round"></path>
+<path d="m15.75 14.75 1.25 1.25 2.25-2.75" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</span>
+<h3 class="tech-header font-bold text-slate-900 leading-tight">Accurate and Thorough Maps</h3>
+</div>
+<p class="text-xs text-slate-600 leading-relaxed">
                                 Generate incredibly reliable lists for letter writing and door-to-door ministry. The tool isolates side-by-side duplexes and nested apartment units that typical routing software skips over, ensuring publishers have reliable records to work with. Since the data is based on address points, and not tax records, many hard to identify units are revealed.
                             </p>
-                        </div>
-
-                        <!-- Use Case 4 -->
-                        <div class="p-6 bg-white border border-slate-200 rounded-xl shadow-sm flex flex-col gap-3">
-                            <div class="flex items-center gap-3">
-                                <span class="p-2 bg-green-50 text-green-700 rounded-lg">
-                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.375 5.25h17.25a1.125 1.125 0 0 1 1.125 1.125v11.25a1.125 1.125 0 0 1-1.125 1.125H3.375A1.125 1.125 0 0 1 2.25 16.875V6.375A1.125 1.125 0 0 1 3.375 5.25Z" /><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 10.5h19.5m-13.5-5.25v14.25m6-14.25v14.25" /></svg>
-                                </span>
-                                <h3 class="tech-header font-bold text-slate-900 leading-tight">Powerful Filters</h3>
-                            </div>
-                            <p class="text-xs text-slate-600 leading-relaxed">
+</div>
+<!-- Use Case 4 -->
+<div class="p-6 bg-white border border-slate-200 rounded-xl shadow-sm flex flex-col gap-3">
+<div class="flex items-center gap-3">
+<span class="use-case-icon bg-green-50 text-green-700" aria-hidden="true">
+<svg aria-hidden="true" class="w-6 h-6" fill="none" focusable="false" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+<path d="M3.75 5.25h16.5l-6.25 7.1v4.9l-4 2v-6.9L3.75 5.25Z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</span>
+<h3 class="tech-header font-bold text-slate-900 leading-tight">Powerful Filters</h3>
+</div>
+<p class="text-xs text-slate-600 leading-relaxed">
                                 The beauty of a structured spreadsheet lies in its customization. Alongside built-in features, you have complete freedom to apply your own data filters. By utilizing the precise column parameters, you can sort your data by practically any metric down to the territory.
                             </p>
-                        </div>
-                    </div>
-
-                    <div class="mt-8 flex flex-col items-center gap-4">
-                        <button onclick="navigateTo('analysis')" class="tactile-btn px-10 py-4 bg-green-700 hover:bg-green-600 text-white font-bold uppercase tracking-wider rounded-xl shadow-md transition duration-150 text-sm flex items-center gap-2">
+</div>
+</div>
+<div class="mt-8 flex flex-col items-center gap-4">
+<button class="tactile-btn px-10 py-4 bg-green-700 hover:bg-green-600 text-white font-bold uppercase tracking-wider rounded-xl shadow-md transition duration-150 text-sm flex items-center gap-2" onclick="navigateTo('analysis')">
                             Start Analyzing Your Territory →
                         </button>
-                        <div class="flex flex-col items-center gap-3 mt-2">
-                             <a href="#" onclick="navigateTo('faq'); return false;" class="text-sm text-green-700 hover:underline font-medium">Have more questions? See the FAQ's.</a>
-                             <a href="#" onclick="navigateTo('sample'); return false;" class="text-sm text-green-700 hover:underline font-medium">See a sample analysis.</a>
-                        </div>
-                    </div>
+<div class="flex flex-col items-center gap-3 mt-2">
+<a class="text-sm text-green-700 hover:underline font-medium" href="#faq" onclick="navigateTo('faq'); return false;">Have more questions? See the FAQ's.</a>
+<a class="text-sm text-green-700 hover:underline font-medium" href="#sample" onclick="navigateTo('sample'); return false;">See a sample analysis.</a>
+</div>
+</div>
+</div>
+</section>
+<!-- ================= INTERACTIVE WORKSPACE: RELEASES & UPDATES ================= -->
+<section class="hidden py-4" id="sect-updates">
+<div class="max-w-4xl mx-auto flex flex-col gap-6">
+<div class="border-b border-slate-200 pb-4">
+<span class="text-xs font-bold uppercase tracking-widest text-green-700">System Log</span>
+<h2 class="tech-header text-3xl font-bold text-slate-900 mt-1">Releases &amp; Updates</h2>
+<p class="data-font text-xs font-semibold tracking-wide text-slate-500 mt-2 leading-relaxed">Track the latest features, engine upgrades, and data refreshes for the Territory Toolbox ecosystem.</p>
+</div>
+
+<div aria-label="Select a Territory Toolbox tool" class="grid grid-cols-1 sm:grid-cols-2 gap-2 p-1.5 bg-slate-100 border border-slate-200 rounded-xl" role="tablist">
+<button aria-controls="release-tool-panel-analysis" aria-selected="true" class="release-tool-tab min-h-11 px-4 py-3 rounded-lg text-xs font-bold tracking-wider text-center" data-release-tool="analysis" id="release-tool-tab-analysis" role="tab" tabindex="0" type="button">TERRITORY ANALYSIS</button>
+<button aria-controls="release-tool-panel-importer" aria-selected="false" class="release-tool-tab min-h-11 px-4 py-3 rounded-lg text-xs font-bold tracking-wider text-center" data-release-tool="importer" id="release-tool-tab-importer" role="tab" tabindex="-1" type="button">NWS IMPORTER</button>
+</div>
+
+<section aria-labelledby="release-tool-tab-analysis" class="flex flex-col gap-5" id="release-tool-panel-analysis" role="tabpanel" tabindex="0">
+<p class="px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-600 leading-relaxed text-center">Dependent on county coverage</p>
+
+<div aria-label="Territory Analysis release views" class="grid grid-cols-1 sm:grid-cols-2 gap-2 border-b border-slate-200 pb-3" role="tablist">
+<button aria-controls="analysis-release-panel-timeline" aria-selected="true" class="release-subtab min-h-10 px-4 py-2.5 border rounded-lg text-[11px] font-bold tracking-wider text-center" data-analysis-release-tab="timeline" id="analysis-release-tab-timeline" role="tab" tabindex="0" type="button">RELEASE TIMELINE</button>
+<button aria-controls="analysis-release-panel-counties" aria-selected="false" class="release-subtab min-h-10 px-4 py-2.5 border rounded-lg text-[11px] font-bold tracking-wider text-center" data-analysis-release-tab="counties" id="analysis-release-tab-counties" role="tab" tabindex="-1" type="button">SUPPORTED COUNTIES</button>
+</div>
+
+<div aria-labelledby="analysis-release-tab-timeline" class="flex flex-col gap-3" id="analysis-release-panel-timeline" role="tabpanel" tabindex="0">
+<div class="relative border-l-2 border-green-200 ml-3 pl-6">
+<div class="relative">
+<div aria-hidden="true" class="absolute -left-[31px] top-1.5 h-4 w-4 rounded-full bg-green-600 border-4 border-[#efefef] shadow-sm"></div>
+<div class="border border-slate-200 rounded-xl bg-white shadow-sm overflow-hidden">
+<button aria-controls="faq-answer-rel-analysis-1" aria-expanded="true" class="w-full p-4 text-left flex justify-between items-center hover:bg-slate-50 transition group" id="faq-button-rel-analysis-1" onclick="toggleFaq('rel-analysis-1')" type="button">
+<div>
+<span class="data-font text-green-700 text-xs font-bold uppercase">v1.0 — July 31, 2026</span>
+<h3 class="tech-header font-bold text-slate-900 mt-0.5 group-hover:text-green-700 transition">Initial Territory Analyzer Release</h3>
+</div>
+<span aria-hidden="true" class="text-green-700 transition-transform duration-200 shrink-0 rotate-180" id="faq-arrow-rel-analysis-1">▼</span>
+</button>
+<div aria-labelledby="faq-button-rel-analysis-1" class="p-4 border-t border-slate-100 bg-slate-50 text-sm text-slate-600 leading-relaxed" id="faq-answer-rel-analysis-1" role="region">
+<ul class="space-y-3">
+<li><strong class="text-slate-800">Precision GIS Mapping:</strong> Cross-references uploaded KML boundary files with official county tax parcel data to deliver exact, ground-truth address counts.</li>
+<li><strong class="text-slate-800">Multi-Family &amp; Apartment Isolation:</strong> Automatically detects and shunts larger multi-family housing (5+ units) into dedicated tabs while preserving precise density metrics.</li>
+<li><strong class="text-slate-800">Comprehensive Audit Reports:</strong> Generates an 8-tab workbook including a summary Dashboard, Territory Balancing projections, Overlap Audits, and Excluded Address logs.</li>
+<li><strong class="text-slate-800">Direct Access:</strong> Fully deployed via a live Streamlit connection for fast, reliable cloud processing.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div aria-labelledby="analysis-release-tab-counties" class="hidden" id="analysis-release-panel-counties" role="tabpanel" tabindex="0">
+<ul class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<li class="p-5 border border-slate-200 rounded-xl bg-white shadow-sm">
+<h3 class="tech-header font-bold text-slate-900">Milwaukee County</h3>
+<p class="data-font text-xs text-slate-500 mt-2">Last updated 7/31/2026</p>
+</li>
+<li class="p-5 border border-slate-200 rounded-xl bg-white shadow-sm">
+<h3 class="tech-header font-bold text-slate-900">Waukesha County</h3>
+<p class="data-font text-xs text-slate-500 mt-2">Last updated 7/31/2026</p>
+</li>
+</ul>
+</div>
+</section>
+
+<section aria-labelledby="release-tool-tab-importer" class="hidden flex-col gap-5" id="release-tool-panel-importer" role="tabpanel" tabindex="0">
+<p class="px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-600 leading-relaxed text-center">Not dependent on county coverage</p>
+
+<div class="relative border-l-2 border-green-200 ml-3 pl-6">
+<div class="relative">
+<div aria-hidden="true" class="absolute -left-[31px] top-1.5 h-4 w-4 rounded-full bg-green-600 border-4 border-[#efefef] shadow-sm"></div>
+<div class="border border-slate-200 rounded-xl bg-white shadow-sm overflow-hidden">
+<button aria-controls="faq-answer-rel-importer-1" aria-expanded="true" class="w-full p-4 text-left flex justify-between items-center hover:bg-slate-50 transition group" id="faq-button-rel-importer-1" onclick="toggleFaq('rel-importer-1')" type="button">
+<div>
+<span class="data-font text-green-700 text-xs font-bold uppercase">v1.0 — July 31, 2026</span>
+<h3 class="tech-header font-bold text-slate-900 mt-0.5 group-hover:text-green-700 transition">Initial NWS Importer Release</h3>
+</div>
+<span aria-hidden="true" class="text-green-700 transition-transform duration-200 shrink-0 rotate-180" id="faq-arrow-rel-importer-1">▼</span>
+</button>
+<div aria-labelledby="faq-button-rel-importer-1" class="p-4 border-t border-slate-100 bg-slate-50 text-sm text-slate-600 leading-relaxed" id="faq-answer-rel-importer-1" role="region">
+<ul class="space-y-3">
+<li><strong class="text-slate-800">Seamless Formatting:</strong> Automatically reformats your territory analysis workbook into an import-ready format for New World Scheduler (NWS).</li>
+<li><strong class="text-slate-800">Import Audit Workbook:</strong> Generates a companion audit file allowing you to review any addresses that were skipped or flagged during processing.</li>
+<li><strong class="text-slate-800">Direct Access:</strong> Fully deployed with a live Streamlit connection for fast, unlimited processing.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</section>
+</main>
+<!-- PORTAL METADATA -->
+<footer class="mt-12 pt-8 pb-6 border-t border-slate-200 flex flex-col gap-8 w-full">
+<!-- Sitemap Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-8 text-[11px] text-slate-400 uppercase tracking-wider font-semibold w-full px-2">
+<div class="flex flex-col gap-3">
+<span class="text-slate-500 font-bold mb-1 tech-header">Tools</span>
+<a class="hover:text-green-700 transition" href="#analysis" onclick="navigateTo('analysis'); return false;">Territory Analyzer</a>
+<a class="hover:text-green-700 transition" href="#importer" onclick="navigateTo('importer'); return false;">NWS IMPORTER</a>
+</div>
+<div class="flex flex-col gap-3">
+<span class="text-slate-500 font-bold mb-1 tech-header">Resources</span>
+<a class="hover:text-green-700 transition" href="#faq" onclick="navigateTo('faq'); return false;">FAQ</a>
+<a class="hover:text-green-700 transition" href="#sample" onclick="navigateTo('sample'); return false;">SAMPLE OUTPUT</a>
+<a class="hover:text-green-700 transition" href="#usecases" onclick="navigateTo('usecases'); return false;">USE CASES</a>
+</div>
+<div class="flex flex-col gap-3">
+<span class="text-slate-500 font-bold mb-1 tech-header">Support</span>
+<a class="hover:text-green-700 transition" href="#contact" onclick="navigateTo('contact'); return false;">CONTACT</a>
+<a class="hover:text-green-700 transition" href="#updates" onclick="navigateTo('updates'); return false;">RELEASES &amp; UPDATES</a>
+</div>
+</div>
+<!-- Copyright & Bottom Links -->
+<div class="flex flex-col md:flex-row justify-between items-center text-[10px] tracking-wider uppercase font-semibold text-slate-400 pt-6 border-t border-slate-200/60 w-full gap-4 px-2">
+<div>
+                    © 2026 TERRITORY TOOLBOX — SYSTEM STATUS: ACTIVE
                 </div>
-            </section>
+<div class="flex gap-4">
+<a class="hover:text-green-700 transition" href="#home" onclick="navigateTo('home'); return false;">Back to Top</a>
+</div>
+</div>
+</footer>
+</div>
+<!-- MAIN CONTROL LOGIC -->
+<script>
+        const validTabs = ['home', 'analysis', 'importer', 'faq', 'contact', 'sample', 'usecases', 'updates'];
+        const navGroupByPage = {
+            analysis: 'tools', importer: 'tools',
+            faq: 'resources', sample: 'resources', usecases: 'resources',
+            contact: 'support', updates: 'support'
+        };
+        const routeBreadcrumbs = {
+            analysis: { category: 'TOOLS', label: 'ANALYZER' },
+            importer: { category: 'TOOLS', label: 'NWS IMPORTER' },
+            faq: { category: 'RESOURCES', label: 'FAQ' },
+            sample: { category: 'RESOURCES', label: 'SAMPLE OUTPUT' },
+            usecases: { category: 'RESOURCES', label: 'USE CASES' },
+            contact: { category: 'SUPPORT', label: 'CONTACT' },
+            updates: { category: 'SUPPORT', label: 'RELEASES & UPDATES' }
+        };
+        const prefersReducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const scrollBehavior = () => prefersReducedMotion() ? 'auto' : 'smooth';
 
-            <!-- ================= INTERACTIVE WORKSPACE: RELEASES & UPDATES ================= -->
-            <section id="sect-updates" class="hidden py-4">
-                <div class="max-w-4xl mx-auto flex flex-col gap-6">
-                    <div class="border-b border-slate-200 pb-4">
-                        <span class="text-xs font-bold uppercase tracking-widest text-green-700">System Log</span>
-                        <h2 class="tech-header text-3xl font-bold text-slate-900 mt-1">Releases & Updates</h2>
-                        <p class="text-sm text-slate-600 mt-2 leading-relaxed">
-                            Track the latest features, engine upgrades, and data refreshes for the Territory Toolbox ecosystem.
-                        </p>
-                    </div>
+        function setNavGroupState(groupId, open) {
+            const button = document.getElementById(`nav-${groupId}-button`);
+            const menu = document.getElementById(`nav-${groupId}-menu`);
+            if (!button || !menu) return;
+            button.setAttribute('aria-expanded', String(open));
+            menu.classList.toggle('hidden', !open);
+        }
 
-                    <!-- Category: DATA COVERAGE -->
-                    <h3 class="tech-header text-xl font-bold text-green-700 mt-2 border-b border-slate-200/50 pb-2">DATA COVERAGE</h3>
-                    <p class="text-sm text-slate-600 -mt-2 mb-2">The Analyzer engine relies on high-accuracy 911 dispatch and county parcel data. Below is the current availability and last refresh date.</p>
-                    
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <!-- Milwaukee County -->
-                        <div class="p-5 border border-slate-200 rounded-xl bg-white shadow-sm hover:border-green-600/50 transition flex flex-col gap-2">
-                            <div class="flex justify-between items-start">
-                                <div class="flex items-center gap-2">
-                                    <span class="h-2 w-2 rounded-full bg-green-600 animate-pulse"></span>
-                                    <h4 class="font-bold text-slate-900">Milwaukee County, WI</h4>
-                                </div>
-                                <span class="bg-green-100 text-green-800 text-[10px] font-bold px-2 py-1 rounded">ACTIVE</span>
-                            </div>
-                            <div class="text-xs text-slate-500 data-font mt-1">Data Refreshed: July 2026</div>
-                        </div>
+        function closeNavGroups(except = null) {
+            ['tools', 'resources', 'support'].forEach((groupId) => {
+                if (groupId !== except) setNavGroupState(groupId, false);
+            });
+        }
 
-                        <!-- Importer Global Tool -->
-                        <div class="p-5 border border-slate-200 rounded-xl bg-slate-50 shadow-sm flex flex-col gap-2">
-                            <div class="flex justify-between items-start">
-                                <div class="flex items-center gap-2">
-                                    <svg class="w-4 h-4 text-green-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                    <h4 class="font-bold text-slate-900">NWS Importer Tool</h4>
-                                </div>
-                                <span class="bg-slate-200 text-slate-700 text-[10px] font-bold px-2 py-1 rounded">GLOBAL</span>
-                            </div>
-                            <div class="text-xs text-slate-600 mt-1">Not dependent on county data. Format your output from anywhere.</div>
-                        </div>
-                    </div>
+        function toggleNavGroup(groupId, event) {
+            if (event) event.stopPropagation();
+            const button = document.getElementById(`nav-${groupId}-button`);
+            if (!button) return;
+            const opening = button.getAttribute('aria-expanded') !== 'true';
+            closeNavGroups(groupId);
+            setNavGroupState(groupId, opening);
+            if (opening) {
+                const firstLink = document.querySelector(`#nav-${groupId}-menu a`);
+                if (event && event.detail === 0 && firstLink) window.setTimeout(() => firstLink.focus(), 0);
+            }
+        }
 
-                    <!-- Category: RELEASE TIMELINE -->
-                    <div class="flex flex-col gap-3">
-                        <h3 class="tech-header text-xl font-bold text-green-700 border-b border-slate-200/50 pb-2">RELEASE TIMELINE</h3>
-                        <div class="relative border-l-2 border-green-200 ml-3 pl-6 flex flex-col gap-5">
-                            <!-- Release 1 -->
-                            <div class="relative">
-                                <!-- Timeline node dot -->
-                                <div class="absolute -left-[31px] top-1.5 h-4 w-4 rounded-full bg-green-600 border-4 border-[#efefef] shadow-sm"></div>
-                                
-                                <div class="border border-slate-200 rounded-xl bg-white shadow-sm overflow-hidden">
-                                    <button onclick="toggleFaq('rel-1')" class="w-full p-4 text-left flex justify-between items-center hover:bg-slate-50 transition group">
-                                        <div>
-                                            <span class="data-font text-green-700 text-xs font-bold uppercase">v1.1.0 — July 2026</span>
-                                            <h4 class="tech-header font-bold text-slate-900 mt-0.5 group-hover:text-green-700 transition">Apartment & Duplex Updates</h4>
-                                        </div>
-                                        <span id="faq-arrow-rel-1" class="text-green-700 transition-transform duration-200 shrink-0">▼</span>
-                                    </button>
-                                    <div id="faq-answer-rel-1" class="hidden p-4 border-t border-slate-100 bg-slate-50 text-sm text-slate-600 leading-relaxed">
-                                        <p class="mb-2 font-medium text-slate-800">New Features:</p>
-                                        <ul class="list-disc pl-5 space-y-1">
-                                            <li>Added a separate tab for large apartment buildings (5 or more units) to make them easier to organize.</li>
-                                            <li>Improved how side-by-side duplexes are counted and displayed on the address list.</li>
-                                            <li>Updated the NWS Importer tool so apartment and unit numbers format smoothly.</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
+        function closeMobileMenu() {
+            const nav = document.getElementById('main-nav');
+            const button = document.getElementById('mobile-menu-button');
+            if (!nav || !button || window.innerWidth >= 1024) return;
+            nav.classList.add('hidden');
+            nav.classList.remove('flex');
+            button.setAttribute('aria-expanded', 'false');
+            button.setAttribute('aria-label', 'Open navigation menu');
+            closeNavGroups();
+        }
 
-                            <!-- Release 2 -->
-                            <div class="relative">
-                                <!-- Timeline node dot -->
-                                <div class="absolute -left-[31px] top-1.5 h-4 w-4 rounded-full bg-slate-300 border-4 border-[#efefef] shadow-sm"></div>
-                                
-                                <div class="border border-slate-200 rounded-xl bg-white shadow-sm overflow-hidden opacity-90">
-                                    <button onclick="toggleFaq('rel-2')" class="w-full p-4 text-left flex justify-between items-center hover:bg-slate-50 transition group">
-                                        <div>
-                                            <span class="data-font text-slate-500 text-xs font-bold uppercase">v1.0.0 — June 2026</span>
-                                            <h4 class="tech-header font-bold text-slate-900 mt-0.5 group-hover:text-slate-700 transition">Initial Website Launch</h4>
-                                        </div>
-                                        <span id="faq-arrow-rel-2" class="text-slate-500 transition-transform duration-200 shrink-0">▼</span>
-                                    </button>
-                                    <div id="faq-answer-rel-2" class="hidden p-4 border-t border-slate-100 bg-slate-50 text-sm text-slate-600 leading-relaxed">
-                                        <p class="mb-2 font-medium text-slate-800">First Release:</p>
-                                        <ul class="list-disc pl-5 space-y-1">
-                                            <li>Launched the main Territory Analysis tool for Milwaukee County.</li>
-                                            <li>Added the ability to upload and read map borders using standard KML files.</li>
-                                            <li>Released the NWS Importer tool to quickly format your addresses for New World Scheduler.</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+        function updateActiveNavigation(tabId) {
+            document.querySelectorAll('[data-nav-page]').forEach((link) => {
+                const active = link.dataset.navPage === tabId;
+                link.classList.toggle('is-active', active && tabId === 'home');
+                if (active) link.setAttribute('aria-current', 'page');
+                else link.removeAttribute('aria-current');
+            });
+            document.querySelectorAll('.nav-group').forEach((group) => group.classList.remove('is-active'));
+            const groupId = navGroupByPage[tabId];
+            if (groupId) {
+                const group = document.querySelector(`[data-nav-group="${groupId}"]`);
+                if (group) group.classList.add('is-active');
+            }
+        }
 
-        </main>
+        function renderBreadcrumb(tabId) {
+            const breadcrumbNav = document.getElementById('breadcrumb-nav');
+            const breadcrumbList = document.getElementById('breadcrumb-list');
+            if (!breadcrumbNav || !breadcrumbList) return;
 
-        <!-- PORTAL METADATA -->
-        <footer class="mt-12 pt-8 pb-6 border-t border-slate-200 flex flex-col gap-8 w-full">
-            <!-- Sitemap Grid -->
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 text-[11px] text-slate-400 uppercase tracking-wider font-semibold w-full px-2">
-                <div class="flex flex-col gap-3">
-                    <span class="text-slate-500 font-bold mb-1 tech-header">Tools</span>
-                    <a href="#" onclick="navigateTo('analysis'); return false;" class="hover:text-green-700 transition">Territory Analyzer</a>
-                    <a href="#" onclick="navigateTo('importer'); return false;" class="hover:text-green-700 transition">NWS Importer</a>
-                </div>
-                <div class="flex flex-col gap-3">
-                    <span class="text-slate-500 font-bold mb-1 tech-header">Resources</span>
-                    <a href="#" onclick="navigateTo('faq'); return false;" class="hover:text-green-700 transition">FAQ</a>
-                    <a href="#" onclick="navigateTo('sample'); return false;" class="hover:text-green-700 transition">Sample Output</a>
-                    <a href="#" onclick="navigateTo('usecases'); return false;" class="hover:text-green-700 transition">Use Cases</a>
-                </div>
-                <div class="flex flex-col gap-3">
-                    <span class="text-slate-500 font-bold mb-1 tech-header">Support</span>
-                    <a href="#" onclick="navigateTo('contact'); return false;" class="hover:text-green-700 transition">Contact</a>
-                    <a href="#" onclick="navigateTo('updates'); return false;" class="hover:text-green-700 transition">Releases & Updates</a>
-                </div>
-            </div>
+            breadcrumbList.replaceChildren();
 
-            <!-- Copyright & Bottom Links -->
-            <div class="flex flex-col md:flex-row justify-between items-center text-[10px] tracking-wider uppercase font-semibold text-slate-400 pt-6 border-t border-slate-200/60 w-full gap-4 px-2">
-                <div>
-                    © 2026 TERRITORY TOOLBOX— SYSTEM STATUS: ACTIVE
-                </div>
-                <div class="flex gap-4">
-                    <a href="#" onclick="navigateTo('home'); return false;" class="hover:text-green-700 transition">Back to Top</a>
-                </div>
-            </div>
-        </footer>
+            if (tabId === 'home' || !routeBreadcrumbs[tabId]) {
+                breadcrumbNav.classList.add('hidden');
+                return;
+            }
 
-    </div>
+            const route = routeBreadcrumbs[tabId];
 
-    <!-- MAIN CONTROL LOGIC -->
-    <script>
-        // Core routing logic based on URL hashes
+            const homeItem = document.createElement('li');
+            const homeLink = document.createElement('a');
+            homeLink.href = '#home';
+            homeLink.className = 'breadcrumb-link';
+            homeLink.textContent = 'HOME';
+            homeLink.addEventListener('click', (event) => {
+                event.preventDefault();
+                navigateTo('home');
+            });
+            homeItem.appendChild(homeLink);
+            breadcrumbList.appendChild(homeItem);
+
+            const separatorOne = document.createElement('li');
+            separatorOne.className = 'breadcrumb-separator';
+            separatorOne.setAttribute('aria-hidden', 'true');
+            separatorOne.textContent = '/';
+            breadcrumbList.appendChild(separatorOne);
+
+            const categoryItem = document.createElement('li');
+            categoryItem.className = 'breadcrumb-category';
+            categoryItem.textContent = route.category;
+            breadcrumbList.appendChild(categoryItem);
+
+            const separatorTwo = document.createElement('li');
+            separatorTwo.className = 'breadcrumb-separator';
+            separatorTwo.setAttribute('aria-hidden', 'true');
+            separatorTwo.textContent = '/';
+            breadcrumbList.appendChild(separatorTwo);
+
+            const currentItem = document.createElement('li');
+            currentItem.className = 'breadcrumb-current';
+            currentItem.setAttribute('aria-current', 'page');
+            currentItem.textContent = route.label;
+            breadcrumbList.appendChild(currentItem);
+
+            breadcrumbNav.classList.remove('hidden');
+        }
+
+
+        function setReleaseTool(toolId, moveFocus = false) {
+            const validReleaseTools = ['analysis', 'importer'];
+            if (!validReleaseTools.includes(toolId)) return;
+
+            document.querySelectorAll('[data-release-tool]').forEach((button) => {
+                const selected = button.dataset.releaseTool === toolId;
+                button.setAttribute('aria-selected', String(selected));
+                button.setAttribute('tabindex', selected ? '0' : '-1');
+                if (selected && moveFocus) button.focus();
+            });
+
+            validReleaseTools.forEach((id) => {
+                const panel = document.getElementById(`release-tool-panel-${id}`);
+                if (!panel) return;
+                const selected = id === toolId;
+                panel.classList.toggle('hidden', !selected);
+                panel.classList.toggle('flex', selected);
+            });
+        }
+
+        function setAnalysisReleaseTab(tabId, moveFocus = false) {
+            const validReleaseTabs = ['timeline', 'counties'];
+            if (!validReleaseTabs.includes(tabId)) return;
+
+            document.querySelectorAll('[data-analysis-release-tab]').forEach((button) => {
+                const selected = button.dataset.analysisReleaseTab === tabId;
+                button.setAttribute('aria-selected', String(selected));
+                button.setAttribute('tabindex', selected ? '0' : '-1');
+                if (selected && moveFocus) button.focus();
+            });
+
+            validReleaseTabs.forEach((id) => {
+                const panel = document.getElementById(`analysis-release-panel-${id}`);
+                if (panel) panel.classList.toggle('hidden', id !== tabId);
+            });
+        }
+
+        function handleAccessibleTabs(event, selector, dataKey, setter) {
+            const tabs = Array.from(document.querySelectorAll(selector));
+            const currentIndex = tabs.indexOf(event.currentTarget);
+            if (currentIndex < 0) return;
+
+            let nextIndex = currentIndex;
+            if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
+                nextIndex = (currentIndex + 1) % tabs.length;
+            } else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
+                nextIndex = (currentIndex - 1 + tabs.length) % tabs.length;
+            } else if (event.key === 'Home') {
+                nextIndex = 0;
+            } else if (event.key === 'End') {
+                nextIndex = tabs.length - 1;
+            } else {
+                return;
+            }
+
+            event.preventDefault();
+            setter(tabs[nextIndex].dataset[dataKey], true);
+        }
+
+        function initializeReleaseTabs() {
+            setReleaseTool('analysis');
+            setAnalysisReleaseTab('timeline');
+
+            document.querySelectorAll('[data-release-tool]').forEach((button) => {
+                button.addEventListener('click', () => setReleaseTool(button.dataset.releaseTool));
+                button.addEventListener('keydown', (event) => {
+                    handleAccessibleTabs(event, '[data-release-tool]', 'releaseTool', setReleaseTool);
+                });
+            });
+
+            document.querySelectorAll('[data-analysis-release-tab]').forEach((button) => {
+                button.addEventListener('click', () => setAnalysisReleaseTab(button.dataset.analysisReleaseTab));
+                button.addEventListener('keydown', (event) => {
+                    handleAccessibleTabs(event, '[data-analysis-release-tab]', 'analysisReleaseTab', setAnalysisReleaseTab);
+                });
+            });
+        }
+
         function applyHash(hash) {
             let tabId = 'home';
             let targetId = null;
-
-            if (hash && hash !== '#' && hash !== '') {
-                // Example: #faq/faq-cat-kml
-                const parts = hash.replace('#', '').split('/');
+            if (hash && hash !== '#') {
+                const parts = hash.replace(/^#/, '').split('/');
                 tabId = parts[0] || 'home';
-                if (parts.length > 1) {
-                    targetId = parts[1];
-                }
+                targetId = parts[1] || null;
             }
-
-            const validTabs = ['home', 'analysis', 'importer', 'faq', 'contact', 'sample', 'usecases', 'updates'];
-            if (!validTabs.includes(tabId)) {
-                tabId = 'home';
-            }
-
-            // Hide all sections and reset tabs
-            validTabs.forEach(sec => {
-                const sectEl = document.getElementById(`sect-${sec}`);
-                if(sectEl) sectEl.classList.add('hidden');
-                
-                const tabEl = document.getElementById(`tab-${sec}`);
-                if(tabEl) {
-                    tabEl.classList.remove('bg-accent-fade', 'text-white');
-                    tabEl.classList.add('text-slate-500');
-                }
+            if (!validTabs.includes(tabId)) tabId = 'home';
+            validTabs.forEach((sectionId) => {
+                const section = document.getElementById(`sect-${sectionId}`);
+                if (section) section.classList.add('hidden');
             });
-
-            // Show active section and tab
-            const activeSect = document.getElementById(`sect-${tabId}`);
-            if(activeSect) activeSect.classList.remove('hidden');
-            
-            const activeTab = document.getElementById(`tab-${tabId}`);
-            if(activeTab) {
-                activeTab.classList.add('bg-accent-fade', 'text-white');
-                activeTab.classList.remove('text-slate-500');
-            }
-
-            // Close mobile menu if open
-            const nav = document.getElementById('main-nav');
-            if (window.innerWidth < 1024 && nav && !nav.classList.contains('hidden')) {
-                nav.classList.add('hidden');
-                nav.classList.remove('flex');
-            }
-
-            // Handle scrolling
+            const activeSection = document.getElementById(`sect-${tabId}`);
+            if (activeSection) activeSection.classList.remove('hidden');
+            renderBreadcrumb(tabId);
+            updateActiveNavigation(tabId);
+            closeMobileMenu();
+            closeNavGroups();
             if (targetId) {
-                // Auto-expand category if hash targets an FAQ category
                 if (targetId.startsWith('faq-cat-')) {
-                    const catName = targetId.replace('faq-cat-', '');
-                    const content = document.getElementById(`cat-content-${catName}`);
-                    const arrow = document.getElementById(`cat-arrow-${catName}`);
-                    if(content && content.classList.contains('hidden')) {
-                        content.classList.remove('hidden');
-                        if(arrow) arrow.classList.add('rotate-180');
+                    setCategoryState(targetId.replace('faq-cat-', ''), true, false);
+                }
+                if (targetId.startsWith('faq-') && /^faq-\d+$/.test(targetId)) {
+                    const faqId = targetId.replace('faq-', '');
+                    const faqButton = document.getElementById(`faq-button-${faqId}`) || document.getElementById(targetId);
+                    if (faqButton) {
+                        const categoryContent = faqButton.closest('[id^="cat-content-"]');
+                        if (categoryContent) setCategoryState(categoryContent.id.replace('cat-content-', ''), true, false);
+                        const answer = document.getElementById(`faq-answer-${faqId}`);
+                        if (answer && answer.classList.contains('hidden')) toggleFaq(faqId);
                     }
                 }
                 const targetElement = document.getElementById(targetId);
-                if (targetElement) {
-                    // Small timeout to allow the display:block to render before scrolling
-                    setTimeout(() => {
-                        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }, 50);
-                }
+                if (targetElement) window.setTimeout(() => {
+                    targetElement.scrollIntoView({ behavior: scrollBehavior(), block: 'start' });
+                    if (targetElement.matches('button')) targetElement.focus({ preventScroll: true });
+                }, 50);
             } else {
-                 window.scrollTo({ top: 0, behavior: 'smooth' });
+                window.scrollTo({ top: 0, behavior: scrollBehavior() });
             }
         }
 
-        // Single page router navigation wrapper
         function navigateTo(tabId, targetId = null) {
-            let newHash = `#${tabId}`;
-            if (targetId) {
-                newHash += `/${targetId}`;
-            }
-
-            // If the hash is already the same, force the update (for clicking the same link twice)
-            if (window.location.hash === newHash) {
-                applyHash(newHash);
-            } else {
-                // Changing the hash will trigger the 'hashchange' event listener below
-                window.location.hash = newHash;
-            }
+            const newHash = `#${tabId}${targetId ? `/${targetId}` : ''}`;
+            if (window.location.hash === newHash) applyHash(newHash);
+            else window.location.hash = newHash;
         }
 
-        // Listen for browser back/forward buttons and direct link visits
-        window.addEventListener('hashchange', () => {
-            applyHash(window.location.hash);
-        });
-
-        // Initialize routing on page load
-        window.addEventListener('DOMContentLoaded', () => {
-            applyHash(window.location.hash);
-        });
-
-        // Mobile Nav Toggle
         function toggleNavMenu() {
             const nav = document.getElementById('main-nav');
-            if (nav.classList.contains('hidden')) {
-                nav.classList.remove('hidden');
-                nav.classList.add('flex');
-            } else {
-                nav.classList.add('hidden');
-                nav.classList.remove('flex');
-            }
+            const button = document.getElementById('mobile-menu-button');
+            if (!nav || !button) return;
+            const opening = nav.classList.contains('hidden');
+            nav.classList.toggle('hidden', !opening);
+            nav.classList.toggle('flex', opening);
+            button.setAttribute('aria-expanded', String(opening));
+            button.setAttribute('aria-label', opening ? 'Close navigation menu' : 'Open navigation menu');
+            if (!opening) closeNavGroups();
         }
 
-        // FAQ Category accordion toggle
-        function toggleCategory(catId) {
+        function setCategoryState(catId, open, updateHash = true) {
             const content = document.getElementById(`cat-content-${catId}`);
             const arrow = document.getElementById(`cat-arrow-${catId}`);
-            
-            if (content.classList.contains('hidden')) {
-                content.classList.remove('hidden');
-                arrow.classList.add('rotate-180');
-                // Silently update URL to match expanded section without jumping
-                history.replaceState(null, null, `#faq/faq-cat-${catId}`);
-            } else {
-                content.classList.add('hidden');
-                arrow.classList.remove('rotate-180');
-                history.replaceState(null, null, '#faq');
-            }
+            const button = document.getElementById(`cat-button-${catId}`);
+            if (!content || !button) return;
+            content.classList.toggle('hidden', !open);
+            if (arrow) arrow.classList.toggle('rotate-180', open);
+            button.setAttribute('aria-expanded', String(open));
+            if (updateHash) history.replaceState(null, '', open ? `#faq/faq-cat-${catId}` : '#faq');
         }
 
-        // FAQ accordion toggle logic
+        function toggleCategory(catId) {
+            const content = document.getElementById(`cat-content-${catId}`);
+            if (content) setCategoryState(catId, content.classList.contains('hidden'));
+        }
+
         function toggleFaq(id) {
             const answer = document.getElementById(`faq-answer-${id}`);
             const arrow = document.getElementById(`faq-arrow-${id}`);
-            
-            if (answer.classList.contains('hidden')) {
-                answer.classList.remove('hidden');
-                arrow.classList.add('rotate-180');
-            } else {
-                answer.classList.add('hidden');
-                arrow.classList.remove('rotate-180');
-            }
+            const button = document.getElementById(`faq-button-${id}`);
+            if (!answer || !button) return;
+            const opening = answer.classList.contains('hidden');
+            answer.classList.toggle('hidden', !opening);
+            if (arrow) arrow.classList.toggle('rotate-180', opening);
+            button.setAttribute('aria-expanded', String(opening));
         }
 
-        // Contact email submission logic
         function handleContactSubmit(event) {
             event.preventDefault();
-            const name = document.getElementById('contact-name').value;
-            const email = document.getElementById('contact-email').value;
-            const subject = document.getElementById('contact-subject').value;
-            const message = document.getElementById('contact-message').value;
-
+            const name = document.getElementById('contact-name').value.trim();
+            const email = document.getElementById('contact-email').value.trim();
+            const subject = document.getElementById('contact-subject').value.trim();
+            const message = document.getElementById('contact-message').value.trim();
             const mailtoBody = `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`;
-            const mailtoUrl = `mailto:isaacrobles33321@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(mailtoBody)}`;
-            
-            window.location.href = mailtoUrl;
+            window.location.href = `mailto:isaacrobles33321@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(mailtoBody)}`;
         }
-    </script>
+
+        window.addEventListener('hashchange', () => applyHash(window.location.hash));
+        window.addEventListener('DOMContentLoaded', () => {
+            initializeReleaseTabs();
+            applyHash(window.location.hash);
+        });
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                closeNavGroups();
+                closeMobileMenu();
+            }
+        });
+        document.addEventListener('click', (event) => {
+            const nav = document.getElementById('main-nav');
+            const mobileButton = document.getElementById('mobile-menu-button');
+            if (nav && !nav.contains(event.target)) closeNavGroups();
+            if (window.innerWidth < 1024 && nav && mobileButton && !nav.classList.contains('hidden') && !nav.contains(event.target) && !mobileButton.contains(event.target)) closeMobileMenu();
+        });
+        document.querySelectorAll('.nav-group').forEach((group) => {
+            group.addEventListener('keydown', (event) => {
+                if (event.key === 'ArrowDown') {
+                    event.preventDefault();
+                    const groupId = group.dataset.navGroup;
+                    setNavGroupState(groupId, true);
+                    const first = group.querySelector('.nav-submenu a');
+                    if (first) first.focus();
+                }
+            });
+        });
+        window.addEventListener('resize', () => {
+            const button = document.getElementById('mobile-menu-button');
+            if (window.innerWidth >= 1024 && button) {
+                button.setAttribute('aria-expanded', 'false');
+                button.setAttribute('aria-label', 'Open navigation menu');
+            }
+            closeNavGroups();
+        });
+</script>
 </body>
 </html>
